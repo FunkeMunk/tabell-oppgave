@@ -17,6 +17,39 @@
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.table {
+  background-size: flex;
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+  overflow: none;
+  padding: 10px;
 }
+
+.container {
+  width: 350px;
+  flex-direction: row;
+  border-radius: 40px;
+  display: flex;
+  height: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration-color: azure;
+}
+
+.upper-row {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px; 
+}
+
+.upper-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  padding: 10px;
+}
+
