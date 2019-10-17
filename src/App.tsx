@@ -14,12 +14,12 @@ const Input = styled.input`
 `
 
  export interface IState {
-   search: String,
+   search: string,
    array: MyArrayValues[],
    key: string,
 }
 
-interface MyArrayValues {
+ export interface MyArrayValues {
   id: number,
   value1: String,
   value2: Number,
@@ -28,7 +28,7 @@ interface MyArrayValues {
 
 export class App extends React.PureComponent{
     state : IState = {
-      search: ' ',
+      search: '',
       key: 'id',
       array: [
         {id: 2, value1: 'Batman', value2: 2000, value3: 200000000},
@@ -45,13 +45,13 @@ export class App extends React.PureComponent{
     })
   }
 
-  sortValue (key: any) {
-    this.sortValue = this.sortValue.bind(this)
-    const Sorted = this.state.array
+  keyID (idval: string) {
+    this.keyID = this.keyID.bind(this)
+      this.setState({key: idval})
   }
 
   render () {
-    this.setState({key: 'value2'})
+    console.log(this.state.key)
     //const filterid = this.state.array.sort((a, b) => (a.id > b.id) ? 1 : -1)
     return (
       <div className='App-header'>
@@ -64,25 +64,52 @@ export class App extends React.PureComponent{
         </div>
         <Table>
           <Newrow>
-              <Toprow>nr</Toprow>
-              <Toprow >movie</Toprow>
-              <Toprow >released</Toprow>
-              <Toprow >budget</Toprow>
+              <Toprow onClick={() => this.keyID('id')}>nr</Toprow>
+              <Toprow>movie</Toprow>
+              <Toprow onClick={() => this.keyID('value2')}  >released</Toprow>
+              <Toprow onClick={() => this.keyID('value3')} >budget</Toprow>
           </Newrow>
-          {
-            this.state.array.sort((a, b) => (a.id > b.id) ? 1 : -1).map(a => (
-              <Newrow>
-                <Elt>{a.id} </Elt>
-                <Elt>{a.value1} </Elt>
-                <Elt>{a.value2} </Elt>
-                <Elt>{a.value3} </Elt>
-              </Newrow>
-            ))
-          }
+            {this.state.key === 'id' ?
+              this.state.array.sort((a, b) => (a.id > b.id) ? 1 : -1).map(a => (
+                <Newrow>
+                  <Elt> {a.id} </Elt>
+                  <Elt>{a.value1}</Elt>
+                  <Elt>{a.value2} </Elt>
+                  <Elt>{a.value3} </Elt>
+                </Newrow>
+                ))
+              : 
+              null
+              }
+
+            {this.state.key === 'value2' ?
+              this.state.array.sort((a, b) => (a.value2 < b.value2) ? 1 : -1).map(a => (
+                <Newrow>
+                  <Elt> {a.id} </Elt>
+                  <Elt>{a.value1}</Elt>
+                  <Elt>{a.value2} </Elt>
+                  <Elt>{a.value3} </Elt>
+                </Newrow>
+                ))
+              :
+              null
+             }
+
+            {this.state.key === 'value3' ?
+              this.state.array.sort((a, b) => (a.value3 < b.value3) ? 1 : -1).map(a => (
+                <Newrow>
+                  <Elt> {a.id} </Elt>
+                  <Elt>{a.value1}</Elt>
+                  <Elt>{a.value2} </Elt>
+                  <Elt>{a.value3} </Elt>
+                </Newrow>
+                ))
+              :
+              null
+            } 
         </Table>
       </div>
     )
   }
 }
-
 export default App;
