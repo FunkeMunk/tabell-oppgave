@@ -18,6 +18,7 @@
 }
 
 .table {
+  border-block-end: 1px solid black;
   background-size: flex;
   flex-direction: column;
   display: flex;

@@ -4,26 +4,28 @@ import { jsx, css } from '@emotion/core'
 import styled from '@emotion/styled'
 
 export const Table = styled.table`
-    border: 2px solid black;
-    width: 550px;
+    overflow-x:auto;
     cursor: pointer;
 `
 
 export const Newrow = styled.tr`
-    border: 1px;
     width: 550px;
     display: center;
     cursor: pointer;
 `
 export const Toprow = styled.th`
-    border: 2px solid black;
+    background-color:SteelBlue;
+    border-bottom: 1px solid black;
     padding: 10px;
     width: 550px;
     cursor: pointer;
+    text-align: center;
+    color: Azure;
 `
 
 export const Elt = styled.td`
-    border: 2px solid black;
+    border-bottom: 2px solid black;
     width: 550px;
     cursor: pointer;
+    text-align: center;
 `

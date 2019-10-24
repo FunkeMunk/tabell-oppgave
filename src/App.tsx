@@ -1,42 +1,63 @@
-import React, { ReactEventHandler } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import styled from '@emotion/styled'
-import { jsx } from '@emotion/core'
-import { css } from '@emotion/core'
 import './App.css'
 import { Table, Newrow, Toprow, Elt } from './Flexbox';
-import { string, number, array, any } from 'prop-types';
-import { render } from 'react-dom';
 
 const Input = styled.input`
   background-color: transparent;
   color: Azure;
+  border: none;
+  border-bottom: 1px solid Azure;
 `
+ export interface OmdbVals {
+  imdbID: number,
+  Year: number,
+  Title: string,
+  Rated: string,
+  Genre: string,
+}
+
+interface ExtInfo {
+  Plot: string,
+  Ratings: any,
+  Awards: string,
+  Actors: string,
+  Writer: string,
+}
 
  export interface IState {
    search: string,
-   array: MyArrayValues[],
    key: string,
-}
-
- export interface MyArrayValues {
-  id: number,
-  value1: String,
-  value2: Number,
-  value3: number,
+   index: Array<OmdbVals>,
+   Ext: Array<ExtInfo>,
+   isLoaded: boolean,
 }
 
 export class App extends React.PureComponent{
-    state : IState = {
-      search: '',
-      key: 'id',
-      array: [
-        {id: 2, value1: 'Batman', value2: 2000, value3: 200000000},
-        {id: 1, value1: 'Titanic', value2: 1999, value3: 10000000},
-        {id: 4, value1: 'up', value2: 2007, value3: 9999999},
-        {id: 3, value1: 'notebok', value2: 1980, value3: 10495338}
-      ]
-    }
+  state : IState = {
+    search: '',
+    key: 'id',
+    index: Array<OmdbVals>(),
+    isLoaded: false,
+    Ext: Array<ExtInfo>(),
+  }
+
+  componentDidMount() {
+    this.setState({
+      isLoaded: true
+    })
+  }
+
+  fetchData = () => {
+    fetch("http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a")
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        index: Array<OmdbVals> (json.imdbID, json.Year,json.Title,json.imdbRating,json.Genre)
+      })
+    })
+    .catch(console.log)
+  }
 
   onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.onSearch  = this.onSearch.bind(this)
@@ -48,65 +69,39 @@ export class App extends React.PureComponent{
   keyID (idval: string) {
     this.keyID = this.keyID.bind(this)
       this.setState({key: idval})
+      this.setState({searchTF: false})
   }
 
   render () {
     console.log(this.state.key)
-    //const filterid = this.state.array.sort((a, b) => (a.id > b.id) ? 1 : -1)
+    console.log(this.state.index)
+    //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
     return (
       <div className='App-header'>
         <div>
           <Input
           type='text'
           onChange={this.onSearch}
+          placeholder='Search for something...'
           >
           </Input>
+          <button onClick={this.fetchData} >
+            fetch list
+          </button>
         </div>
         <Table>
           <Newrow>
-              <Toprow onClick={() => this.keyID('id')}>nr</Toprow>
-              <Toprow>movie</Toprow>
-              <Toprow onClick={() => this.keyID('value2')}  >released</Toprow>
-              <Toprow onClick={() => this.keyID('value3')} >budget</Toprow>
+              <Toprow>id</Toprow>
+              <Toprow>Released</Toprow>
+              <Toprow>Title</Toprow>
+              <Toprow>Rated</Toprow>
+              <Toprow>Genre</Toprow>
           </Newrow>
-            {this.state.key === 'id' ?
-              this.state.array.sort((a, b) => (a.id > b.id) ? 1 : -1).map(a => (
-                <Newrow>
-                  <Elt> {a.id} </Elt>
-                  <Elt>{a.value1}</Elt>
-                  <Elt>{a.value2} </Elt>
-                  <Elt>{a.value3} </Elt>
-                </Newrow>
-                ))
-              : 
-              null
-              }
-
-            {this.state.key === 'value2' ?
-              this.state.array.sort((a, b) => (a.value2 < b.value2) ? 1 : -1).map(a => (
-                <Newrow>
-                  <Elt> {a.id} </Elt>
-                  <Elt>{a.value1}</Elt>
-                  <Elt>{a.value2} </Elt>
-                  <Elt>{a.value3} </Elt>
-                </Newrow>
-                ))
-              :
-              null
-             }
-
-            {this.state.key === 'value3' ?
-              this.state.array.sort((a, b) => (a.value3 < b.value3) ? 1 : -1).map(a => (
-                <Newrow>
-                  <Elt> {a.id} </Elt>
-                  <Elt>{a.value1}</Elt>
-                  <Elt>{a.value2} </Elt>
-                  <Elt>{a.value3} </Elt>
-                </Newrow>
-                ))
-              :
-              null
-            } 
+          <Newrow>
+              {this.state.index.map(item => (
+                  <Elt>{item}</Elt>
+              ))}
+          </Newrow>
         </Table>
       </div>
     )
