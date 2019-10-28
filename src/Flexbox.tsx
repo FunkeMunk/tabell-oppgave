@@ -7,7 +7,12 @@ export const Table = styled.table`
     overflow-x:auto;
     cursor: pointer;
 `
-
+export const Input = styled.input`
+  background-color: transparent;
+  color: Azure;
+  border: none;
+  border-bottom: 1px solid Azure;
+`
 export const Newrow = styled.tr`
     width: 550px;
     display: center;

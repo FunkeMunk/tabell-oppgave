@@ -1,110 +1,69 @@
-import React from 'react';
-import styled from '@emotion/styled'
+import React, { useState, ReactElement, useEffect, useContext } from 'react';
 import './App.css'
-import { Table, Newrow, Toprow, Elt } from './Flexbox';
+import { Table, Newrow, Toprow, Elt, Input } from './Flexbox';
+import './States'
+import { IState, States, OmdbVals } from './States';
+import { string } from 'prop-types';
 
-const Input = styled.input`
-  background-color: transparent;
-  color: Azure;
-  border: none;
-  border-bottom: 1px solid Azure;
-`
- export interface OmdbVals {
-  imdbID: number,
-  Year: number,
-  Title: string,
-  Rated: string,
-  Genre: string,
+function onSearch (e: React.ChangeEvent<HTMLInputElement>) {
+  let Search = e.target.value
+  return Search
 }
 
-interface ExtInfo {
-  Plot: string,
-  Ratings: any,
-  Awards: string,
-  Actors: string,
-  Writer: string,
+function keyID (idval: string) {
+  let Key = idval
+  return Key
 }
 
- export interface IState {
-   search: string,
-   key: string,
-   index: Array<OmdbVals>,
-   Ext: Array<ExtInfo>,
-   isLoaded: boolean,
+let vals: OmdbVals = {
+  Title: '',
+  Genre: '',
+  imdbID: '',
+  Rated: '',
+  Year: '',
 }
+  
+const App: React.SFC<OmdbVals> = props => {
+  
+  const [array, setArray] = useState(vals);
 
-export class App extends React.PureComponent{
-  state : IState = {
-    search: '',
-    key: 'id',
-    index: Array<OmdbVals>(),
-    isLoaded: false,
-    Ext: Array<ExtInfo>(),
+  const fetchData = async () => {
+    let res =  await fetch('http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a');
+    let Data = await res.json();
+    setArray(Data);
   }
+  
+  useEffect(() => {
+    fetchData();
+  }, [])
 
-  componentDidMount() {
-    this.setState({
-      isLoaded: true
-    })
-  }
-
-  fetchData = () => {
-    fetch("http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a")
-    .then(res => res.json())
-    .then(json => {
-      this.setState({
-        index: Array<OmdbVals> (json.imdbID, json.Year,json.Title,json.imdbRating,json.Genre)
-      })
-    })
-    .catch(console.log)
-  }
-
-  onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.onSearch  = this.onSearch.bind(this)
-    this.setState({
-      search: e.target.value
-    })
-  }
-
-  keyID (idval: string) {
-    this.keyID = this.keyID.bind(this)
-      this.setState({key: idval})
-      this.setState({searchTF: false})
-  }
-
-  render () {
-    console.log(this.state.key)
-    console.log(this.state.index)
-    //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
-    return (
-      <div className='App-header'>
-        <div>
-          <Input
-          type='text'
-          onChange={this.onSearch}
-          placeholder='Search for something...'
-          >
-          </Input>
-          <button onClick={this.fetchData} >
-            fetch list
-          </button>
-        </div>
-        <Table>
-          <Newrow>
-              <Toprow>id</Toprow>
-              <Toprow>Released</Toprow>
-              <Toprow>Title</Toprow>
-              <Toprow>Rated</Toprow>
-              <Toprow>Genre</Toprow>
-          </Newrow>
-          <Newrow>
-              {this.state.index.map(item => (
-                  <Elt>{item}</Elt>
-              ))}
-          </Newrow>
-        </Table>
+  //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
+  return (
+    <div className='App-header'>
+      <div>
+        <Input 
+          type='text' 
+          onChange={onSearch} 
+          placeholder='Search for something...'>
+        </Input>
       </div>
-    )
-  }
+      <Table>
+        <Newrow>
+            <Toprow>id</Toprow>
+            <Toprow>Released</Toprow>
+            <Toprow>Title</Toprow>
+            <Toprow>Rated</Toprow>
+            <Toprow>Genre</Toprow>
+        </Newrow>
+          <Newrow>
+            <Elt> {array.imdbID} </Elt>
+            <Elt> {array.Year} </Elt>
+            <Elt> {array.Title} </Elt>
+            <Elt> {array.Rated} </Elt>
+            <Elt> {array.Genre} </Elt>
+          </Newrow>
+      </Table>
+    </div>
+  )
 }
 export default App;
