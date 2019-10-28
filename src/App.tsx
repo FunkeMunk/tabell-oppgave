@@ -1,9 +1,8 @@
-import React, { useState, ReactElement, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css'
 import { Table, Newrow, Toprow, Elt, Input } from './Flexbox';
 import './States'
-import { IState, States, OmdbVals } from './States';
-import { string } from 'prop-types';
+import { OmdbVals } from './States';
 
 function onSearch (e: React.ChangeEvent<HTMLInputElement>) {
   let Search = e.target.value
