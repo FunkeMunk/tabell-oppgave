@@ -1,11 +1,11 @@
 import React from "react";
 
 export interface OmdbVals {
-    imdbID?: string,
-    Year?: string,
-    Title?: string,
-    Rated?: string,
-    Genre?: string,
+    imdbID: string,
+    Year: string,
+    Title: string,
+    Rated: string,
+    Genre: string,
 }
   
 export interface ExtInfo {
