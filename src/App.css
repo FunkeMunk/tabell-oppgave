@@ -1,4 +1,5 @@
 .App {
+  align-items: center;
   text-align: center;
 }
 
@@ -54,3 +55,52 @@
   padding: 10px;
 }
 
+.extInfo{
+  pointer-events: visible;
+  border: 5px solid rgb(207, 223, 223);
+  text-align: center;
+  cursor: pointer;
+  color: darkslategray;
+  background-color: darkcyan;
+  padding: 10px;
+  position: fixed;
+  width: 500px;
+  left: center;
+  top: 15vw;
+  left: 36vw;
+  z-index: 1000;
+}
+
+.box-header{
+  width: 100%;
+  font-family: fantasy;
+  padding: 10px;
+  font-size: xx-large;
+  text-align: center;
+  position: static;
+  color: Azure;
+}
+
+.box-text{
+  font-family: fantasy;
+  color: Azure;
+  font-size: larger;
+  padding: 5px;
+  text-align: left;
+  align-content: center;
+  font-size: 14.5px;
+}
+.misc{
+  text-align: right;
+}
+
+.catText{
+  font-size: medium;
+  padding: 5px;
+}
+
+.plot{
+  text-align: center;
+  height: auto;
+  text-justify: distribute;
+}
