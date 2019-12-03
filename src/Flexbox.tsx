@@ -9,7 +9,7 @@ export const Table = styled.table`
     position: absolute;
     left: 0vw;
     right: auto;
-    top: 10vw;
+    top: 150px;
     cursor: pointer;
 `
 export const Input = styled.input`
@@ -19,7 +19,6 @@ export const Input = styled.input`
   border-bottom: 1px solid Azure;
 `
 export const Newrow = styled.tr`
-    font-size: 25.5px;
     width: 550px;
     display: center;
     cursor: pointer;
@@ -27,7 +26,7 @@ export const Newrow = styled.tr`
         background-color: rgb(77, 89, 102);
     }
 `
-export const Toprow = styled.th`
+export const Topelt = styled.th`
     font-size: 30px;
     background-color:SteelBlue;
     border-bottom: 1px solid black;
@@ -39,6 +38,8 @@ export const Toprow = styled.th`
 `
 
 export const Elt = styled.td`
+    font-size: 23px;
+    padding: 5px;
     border-bottom: 2px solid black;
     width: 550px;
     cursor: pointer;

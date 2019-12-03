@@ -55,6 +55,14 @@
   padding: 10px;
 }
 
+.sitename{
+  position: absolute;
+  padding: 10px;
+  top: 10px;
+  left: 30vw;
+  right: 30vw;
+}
+
 .extInfo{
   pointer-events: visible;
   border: 5px solid rgb(207, 223, 223);
@@ -66,8 +74,8 @@
   position: fixed;
   width: 500px;
   left: center;
-  top: 15vw;
-  left: 36vw;
+  top: 290px;
+  left: 37vw;
   z-index: 1000;
 }
 
@@ -103,4 +111,11 @@
   text-align: center;
   height: auto;
   text-justify: distribute;
+}
+
+@media screen and (max-width: 900px) {
+  .extInfo{
+    left: 10%;
+    right: 5%;
+  }
 }

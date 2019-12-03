@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Newrow, Toprow, Elt, Input } from './Flexbox';
+import { Table, Newrow, Topelt, Elt, Input } from './Flexbox';
 import { OmdbVals } from './States';
 import './App.css'
 
@@ -73,11 +73,11 @@ export function Movietable() {
             <Infobox/>
             <Table>
                 <Newrow>
-                    <Toprow>id</Toprow>
-                    <Toprow>Title</Toprow>
-                    <Toprow>Released</Toprow>
-                    <Toprow>Rated</Toprow>
-                    <Toprow>Genre</Toprow>
+                    <Topelt>id</Topelt>
+                    <Topelt>Title</Topelt>
+                    <Topelt>Released</Topelt>
+                    <Topelt>Rated</Topelt>
+                    <Topelt>Genre</Topelt>
                 </Newrow>
                 {array.map(info => (
                     <Newrow key={info.imdbID} onClick={() => open()}>
