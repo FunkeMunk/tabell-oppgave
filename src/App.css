@@ -56,11 +56,13 @@
 }
 
 .sitename{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 60px;
+  display: inline-flex;
   position: absolute;
-  padding: 10px;
+  padding: 1px;
   top: 10px;
-  left: 30vw;
-  right: 30vw;
+  right: 42.5vw;
 }
 
 .extInfo{
@@ -76,6 +78,7 @@
   left: center;
   top: 290px;
   left: 37vw;
+  box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
   z-index: 1000;
 }
 
@@ -113,9 +116,29 @@
   text-justify: distribute;
 }
 
+.searchdiv {
+  display: inline-flex;
+  flex-direction: row;
+  align-content: space-between;
+  padding: 5px;
+  position: absolute;
+  top: 117px;
+  right: 42.5%;
+}
+
 @media screen and (max-width: 900px) {
   .extInfo{
     left: 10%;
-    right: 5%;
+    right: 10%;
+  }
+
+  .sitename{
+    left: 20%;
+    right: 42%;
+  }
+
+  .searchdiv{
+    right: 42%;
+    left: 20%;
   }
 }

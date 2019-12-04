@@ -13,22 +13,40 @@ let state: Boolean = {
 
 export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
+    const [search, setSearch] = React.useState<string>('')
     const [ToF, setToF] = useState(state.Bol)
 
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
+        document.body.style.overflow = 'unset'
         setToF(false)
     }
 
     const open = () => {
         document.body.style.pointerEvents = 'none'
+        document.body.style.overflow = 'hidden'
         setToF(true)
     }
 
+    const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }      
+
     const fetchData = async () => {
-        let res =  await fetch('http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a');
+        let res = await fetch('http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a')
         let data = await res.json();
-        setarray([data])
+        setarray([data])            
+    }
+
+    const searchData = async () => {
+        if (search.length > 0) {
+            let res = await fetch('http://www.omdbapi.com/?i=' + search + '&apikey=75dd173a')
+            let data = await res.json();
+            setarray([data])
+            setSearch('')
+        } else {
+            fetchData()
+        }
     }
 
     useEffect(() => {
@@ -48,11 +66,11 @@ export function Movietable() {
                         <div className='box-text'>
                         {array.map(info => (
                             <div key={info.imdbID}>
-                                <div className='catText'>Director:  {info.Director} </div>  
+                                <div className='catText'>Directed by  {info.Director} </div>  
                                 <div className='catText'>Actors: {info.Actors} </div>
                                 <div className='catText'>Awards:  {info.Awards} </div>
-                                <div className='catText'>Rating: {info.Metascore} / 100 </div>
-                                <div className='catText'>Runtime: {info.Runtime} </div>
+                                <div className='catText'>Rated {info.Metascore} / 100 </div>
+                                <div className='catText'>Runtime is {info.Runtime} </div>
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
                             ))}
@@ -63,13 +81,28 @@ export function Movietable() {
                         </button>       
                         </div>
                     </div> 
-                }                
+                }           
             </div>
         )
     }
-
+  
     return (
+          //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
+            <div className='searchdiv'>
+                <button onClick={() => fetchData()}>
+                    Reload!
+                </button> 
+                <input
+                    type={'text'}
+                    value={search}
+                    onChange={onSearch}
+                    placeholder='Search...'
+                ></input>
+                <button onClick={() => searchData()}>
+                    Search!
+                </button>
+            </div>
             <Infobox/>
             <Table>
                 <Newrow>
@@ -79,14 +112,14 @@ export function Movietable() {
                     <Topelt>Rated</Topelt>
                     <Topelt>Genre</Topelt>
                 </Newrow>
-                {array.map(info => (
-                    <Newrow key={info.imdbID} onClick={() => open()}>
-                        <Elt> {info.imdbID} </Elt>
-                        <Elt> {info.Title} </Elt>
-                        <Elt> {info.Released} </Elt>
-                        <Elt> {info.Rated} </Elt>
-                        <Elt> {info.Genre} </Elt>
-                    </Newrow> 
+                    {array.map(info => (
+                        <Newrow key={info.imdbID} onClick={() => open()}>
+                            <Elt> {info.imdbID} </Elt>
+                            <Elt> {info.Title} </Elt>
+                            <Elt> {info.Released} </Elt>
+                            <Elt> {info.Rated} </Elt>
+                            <Elt> {info.Genre} </Elt>
+                        </Newrow>                       
                 ))}
             </Table>
         </div>
