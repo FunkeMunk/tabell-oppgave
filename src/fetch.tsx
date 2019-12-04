@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Newrow, Topelt, Elt, Input } from './Flexbox';
+import { Table, Newrow, Topelt, Elt, Input, Button } from './Flexbox';
 import { OmdbVals } from './States';
 import './App.css'
 
@@ -90,18 +90,18 @@ export function Movietable() {
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
             <div className='searchdiv'>
-                <button onClick={() => fetchData()}>
-                    Reload!
-                </button> 
-                <input
+                <Input
                     type={'text'}
                     value={search}
                     onChange={onSearch}
                     placeholder='Search...'
-                ></input>
-                <button onClick={() => searchData()}>
+                ></Input>
+                <Button onClick={() => searchData()}>
                     Search!
-                </button>
+                </Button>
+                <Button onClick={() => fetchData()}>
+                    Reload!
+                </Button> 
             </div>
             <Infobox/>
             <Table>

@@ -10,8 +10,14 @@ export const Table = styled.table`
     left: 0vw;
     right: auto;
     top: 150px;
+`
+export const Button = styled.button`
+    color: Azure;
+    background-color: SteelBlue;
+    border: none;
     cursor: pointer;
 `
+
 export const Input = styled.input`
   background-color: transparent;
   color: Azure;
@@ -21,7 +27,6 @@ export const Input = styled.input`
 export const Newrow = styled.tr`
     width: 550px;
     display: center;
-    cursor: pointer;
     &:hover{
         background-color: rgb(77, 89, 102);
     }
@@ -32,7 +37,6 @@ export const Topelt = styled.th`
     border-bottom: 1px solid black;
     padding: 10px;
     width: 550px;
-    cursor: pointer;
     text-align: center;
     color: Azure;
 `
@@ -42,6 +46,5 @@ export const Elt = styled.td`
     padding: 5px;
     border-bottom: 2px solid black;
     width: 550px;
-    cursor: pointer;
     text-align: center;
 `
