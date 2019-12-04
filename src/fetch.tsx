@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Newrow, Topelt, Elt, Input, Button } from './Flexbox';
 import { OmdbVals } from './States';
 import './App.css'
+import { css, jsx } from '@emotion/core';
 
 interface Boolean {
     Bol: boolean;
@@ -48,7 +49,6 @@ export function Movietable() {
             fetchData()
         }
     }
-
     useEffect(() => {
         fetchData();
     }, [])
@@ -66,6 +66,7 @@ export function Movietable() {
                         <div className='box-text'>
                         {array.map(info => (
                             <div key={info.imdbID}>
+                                <div className='catText'>Title:  {info.Title} </div>  
                                 <div className='catText'>Directed by  {info.Director} </div>  
                                 <div className='catText'>Actors: {info.Actors} </div>
                                 <div className='catText'>Awards:  {info.Awards} </div>
@@ -76,9 +77,9 @@ export function Movietable() {
                             ))}
                         </div>
                         <div className='misc'>
-                        <button onClick={() => dismiss()}>
-                            close
-                        </button>       
+                            <button onClick={() => dismiss()}>
+                                close
+                            </button>       
                         </div>
                     </div> 
                 }           
@@ -101,7 +102,7 @@ export function Movietable() {
                 </Button>
                 <Button onClick={() => fetchData()}>
                     Reload!
-                </Button> 
+                </Button>
             </div>
             <Infobox/>
             <Table>
@@ -119,7 +120,7 @@ export function Movietable() {
                             <Elt> {info.Released} </Elt>
                             <Elt> {info.Rated} </Elt>
                             <Elt> {info.Genre} </Elt>
-                        </Newrow>                       
+                        </Newrow>                  
                 ))}
             </Table>
         </div>

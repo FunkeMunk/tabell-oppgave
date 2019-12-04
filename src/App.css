@@ -1,3 +1,7 @@
+/*
+  Default styling
+*/
+
 .App {
   align-items: center;
   text-align: center;
@@ -17,6 +21,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+/*
+  Table styling
+*/
 
 .table {
   border-block-end: 1px solid black;
@@ -55,7 +63,17 @@
   padding: 10px;
 }
 
+/*
+  Page styling
+*/
+
+.test{
+  position: absolute;
+  top: 30%;
+}
+
 .sitename{
+  user-select: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 60px;
   display: flex;
@@ -65,6 +83,7 @@
   top: 10px;
   right: 42vw;
   left: 42vw;
+  z-index: 999;
 }
 
 .extInfo{
@@ -76,7 +95,6 @@
   padding: 10px;
   position: fixed;
   width: 500px;
-  left: center;
   top: 290px;
   left: 37vw;
   box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
@@ -118,15 +136,22 @@
 }
 
 .searchdiv {
+  background-color: #282c34;
+  padding: 10px;
   display: flex;
   direction: ltr;
   flex-direction: row;
   justify-content: space-between;
   position: absolute;
   top: 117px;
-  left: 42vw;
-  right: 42.5vw;
+  left: 41.5%;
+  width: 280px;
+  z-index: 999;
 }
+
+/*
+  Respondsive querries
+*/
 
 @media screen and (max-width: 900px) {
   .extInfo{
@@ -140,7 +165,6 @@
   }
 
   .searchdiv{
-    right: 42%;
-    left: 20%;
+    left: 19.5%;
   }
 }

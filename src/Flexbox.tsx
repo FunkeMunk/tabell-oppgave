@@ -9,7 +9,7 @@ export const Table = styled.table`
     position: absolute;
     left: 0vw;
     right: auto;
-    top: 150px;
+    top: 160px;
 `
 export const Button = styled.button`
     color: Azure;
@@ -32,6 +32,7 @@ export const Newrow = styled.tr`
     }
 `
 export const Topelt = styled.th`
+    user-select: none;
     font-size: 30px;
     background-color:SteelBlue;
     border-bottom: 1px solid black;
@@ -42,6 +43,7 @@ export const Topelt = styled.th`
 `
 
 export const Elt = styled.td`
+    user-select: none;
     font-size: 23px;
     padding: 5px;
     border-bottom: 2px solid black;
