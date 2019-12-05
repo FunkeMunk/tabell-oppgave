@@ -116,23 +116,21 @@ export function Movietable() {
         } else {
             return(
                 <div className='listwrapper'>
-                    <ul>
-                        {array.map(info => (
+                    {array.map(info => (
+                        <ul key={info.imdbID} >
                             <div className='list' onClick={() => open()}>
                                 <div className='listPic'>
                                     <img src={info.Poster} width='150px'></img>
                                 </div>
                                 <div className='listtext'>
-                                    <ul id={info.imdbID}>
-                                        <div className='textcat'> {info.Title} ({info.Year}) </div>
-                                        <div className='textcat' > {info.Genre} </div>
-                                        <div className='textcat' > scored {info.Metascore} / 100</div>
-                                        <div className='textcat' > lasts {info.Runtime} </div>                            
-                                    </ul>
+                                    <div className='textcat'> {info.Title} ({info.Year}) </div>
+                                    <div className='textcat' > {info.Genre} </div>
+                                    <div className='textcat' > scored {info.Metascore} / 100</div>
+                                    <div className='textcat' > lasts {info.Runtime} </div>                         
                                 </div>
-                            </div> 
-                        ))}    
-                    </ul>
+                            </div>
+                        </ul> 
+                    ))}
                 </div>
             )
         }
