@@ -188,6 +188,7 @@
   height: fit-content;
   align-items: center;
   align-content: center;
+  z-index: 1000;
 }
 
 .logo{
