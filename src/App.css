@@ -75,8 +75,9 @@
   padding: 5px;
   position: absolute;
   top: 180px;
+  right: 35vw;
   left: 38.5%;
-  transition: all .2s ease-in-out;
+  transition: .2s ease-in-out;
 }
 
 .list:hover{
@@ -207,5 +208,10 @@
 
   .searchdiv{
     left: 19.5%;
+  }
+
+  .list{
+    right: 20%;
+    left: 12%;
   }
 }
