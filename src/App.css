@@ -67,9 +67,44 @@
   Page styling
 */
 
-.test{
+.list{
+  cursor: pointer;
+  display: flex;
+  width: 500px;
+  background-color: whitesmoke;
+  padding: 5px;
   position: absolute;
-  top: 30%;
+  top: 180px;
+  left: 38.5%;
+  transition: all .2s ease-in-out;
+}
+
+.list:hover{
+  transform: scale(1.1);
+}
+
+.listPic{
+  align-items: left;
+  width: fit-content;
+  padding: 5px;
+}
+
+.listtext{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  color: #282c34;
+  text-align: start;
+  align-items: right;
+  font-size: 14.5px;
+  position: relative;
+  left: -25px;
+  top: 20px;
+}
+
+.textcat{
+  left: 5px;
+  padding: 5px;
 }
 
 .sitename{
@@ -96,7 +131,7 @@
   position: fixed;
   width: 500px;
   top: 290px;
-  left: 37vw;
+  left: 38vw;
   box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
   z-index: 1000;
 }
@@ -129,6 +164,13 @@
   padding: 5px;
 }
 
+.catTextTitl{
+  font-size: medium;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+}
+
 .plot{
   text-align: center;
   height: auto;
@@ -136,16 +178,15 @@
 }
 
 .searchdiv {
-  background-color: #282c34;
-  padding: 10px;
+  padding: 3px;
   display: flex;
   direction: ltr;
   flex-direction: row;
   justify-content: space-between;
   position: absolute;
   top: 117px;
-  left: 41.5%;
-  width: 280px;
+  left: 41.7%;
+  width: 380px;
   z-index: 999;
 }
 

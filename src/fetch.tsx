@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Newrow, Topelt, Elt, Input, Button } from './Flexbox';
+import { Table, Newrow, Topelt, Elt, Input, Button, Select } from './Flexbox';
 import { OmdbVals } from './States';
 import './App.css'
 import { css, jsx } from '@emotion/core';
@@ -16,6 +16,7 @@ export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
     const [search, setSearch] = React.useState<string>('')
     const [ToF, setToF] = useState(state.Bol)
+    const [view, setview] = React.useState<boolean>(false)
 
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
@@ -49,6 +50,7 @@ export function Movietable() {
             fetchData()
         }
     }
+
     useEffect(() => {
         fetchData();
     }, [])
@@ -66,10 +68,10 @@ export function Movietable() {
                         <div className='box-text'>
                         {array.map(info => (
                             <div key={info.imdbID}>
-                                <div className='catText'>Title:  {info.Title} </div>  
+                                <div className='catText'>{info.Title} </div>  
                                 <div className='catText'>Directed by  {info.Director} </div>  
-                                <div className='catText'>Actors: {info.Actors} </div>
-                                <div className='catText'>Awards:  {info.Awards} </div>
+                                <div className='catText'> Acted by {info.Actors} </div>
+                                <div className='catText'>{info.Awards} </div>
                                 <div className='catText'>Rated {info.Metascore} / 100 </div>
                                 <div className='catText'>Runtime is {info.Runtime} </div>
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
@@ -86,7 +88,58 @@ export function Movietable() {
             </div>
         )
     }
-  
+
+    const Viewas = () => {
+        if (view == false) {
+            return(
+                <div>
+                    <Table>
+                        <Newrow>
+                            <Topelt>id</Topelt>
+                            <Topelt>Title</Topelt>
+                            <Topelt>Released</Topelt>
+                            <Topelt>Rated</Topelt>
+                            <Topelt>Genre</Topelt>
+                        </Newrow>
+                        {array.map(info => (
+                            <Newrow key={info.imdbID} onClick={() => open()}>
+                                <Elt> {info.imdbID} </Elt>
+                                <Elt> {info.Title} </Elt>
+                                <Elt> {info.Released} </Elt>
+                                <Elt> {info.Rated} </Elt>
+                                <Elt> {info.Genre} </Elt>
+                            </Newrow>                  
+                        ))}
+                    </Table>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    <ul>
+                        {array.map(info => (
+                            <div className='list' onClick={() => open()}>
+                                <div className='listPic'>
+                                    <img src={info.Poster} width='150px'></img>
+                                </div>
+                                <div className='listtext'>
+                                    <ul id={info.imdbID}>
+                                        <div className='textcat'> {info.Title} ({info.Year}) </div>
+                                        <div className='textcat' > {info.Genre} </div>
+                                        <div className='textcat' > scored {info.Metascore} / 100</div>
+                                        <div className='textcat' > lasts {info.Runtime} </div>                            
+                                    </ul>
+                                </div>
+                            </div>  
+                        ))}                        
+                    </ul>
+
+                </div>
+
+            )
+        }
+    }
+
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
@@ -103,26 +156,15 @@ export function Movietable() {
                 <Button onClick={() => fetchData()}>
                     Reload!
                 </Button>
+                <Select>
+                    <option onClick={() => setview(false)}>Table</option>
+                    <option onClick={() => setview(true)}>List</option>
+                </Select>
             </div>
             <Infobox/>
-            <Table>
-                <Newrow>
-                    <Topelt>id</Topelt>
-                    <Topelt>Title</Topelt>
-                    <Topelt>Released</Topelt>
-                    <Topelt>Rated</Topelt>
-                    <Topelt>Genre</Topelt>
-                </Newrow>
-                    {array.map(info => (
-                        <Newrow key={info.imdbID} onClick={() => open()}>
-                            <Elt> {info.imdbID} </Elt>
-                            <Elt> {info.Title} </Elt>
-                            <Elt> {info.Released} </Elt>
-                            <Elt> {info.Rated} </Elt>
-                            <Elt> {info.Genre} </Elt>
-                        </Newrow>                  
-                ))}
-            </Table>
+            <div>
+                <Viewas/>
+            </div>
         </div>
     )
 }
