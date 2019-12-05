@@ -71,6 +71,7 @@
   cursor: pointer;
   display: flex;
   width: 500px;
+  height: 235px;
   background-color: whitesmoke;
   padding: 5px;
   position: absolute;
