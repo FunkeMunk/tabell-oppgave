@@ -130,8 +130,8 @@ export function Movietable() {
                                         <div className='textcat' > lasts {info.Runtime} </div>                            
                                     </ul>
                                 </div>
-                            </div>  
-                        ))}                        
+                            </div> 
+                        ))}    
                     </ul>
                 </div>
             )

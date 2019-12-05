@@ -76,7 +76,6 @@
   background-color: whitesmoke;
   padding: 5px;
   position: absolute;
-  top: 25px;
   right: 35.5vw;
   left: 38.5%;
   transition: .2s ease-in-out;
@@ -175,10 +174,10 @@
 */
 
 .listwrapper{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  position: absolute;
+  display: grid;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: fixed;
   overflow: auto;
   top: 70px;
   bottom: 0%;
@@ -186,9 +185,7 @@
   right: 0%;
   width: fit-content;
   height: fit-content;
-  align-items: center;
-  align-content: center;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .logo{
@@ -235,7 +232,7 @@
   Respondsive querries
 */
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   .extInfo{
     left: 10%;
     right: 10%;

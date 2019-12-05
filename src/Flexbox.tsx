@@ -55,7 +55,7 @@ export const Elt = styled.td`
 
 export const Select = styled.select`
     position: inherit;
-    right: 8vw;
+    left: 88vw;
     top: 27px;
     cursor: pointer;
     color: Azure;
