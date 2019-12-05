@@ -115,7 +115,7 @@ export function Movietable() {
             )
         } else {
             return(
-                <div>
+                <div className='listwrapper'>
                     <ul>
                         {array.map(info => (
                             <div className='list' onClick={() => open()}>
@@ -133,9 +133,7 @@ export function Movietable() {
                             </div>  
                         ))}                        
                     </ul>
-
                 </div>
-
             )
         }
     }
@@ -143,23 +141,30 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <div className='searchdiv'>
-                <Input
-                    type={'text'}
-                    value={search}
-                    onChange={onSearch}
-                    placeholder='Search...'
-                ></Input>
-                <Button onClick={() => searchData()}>
-                    Search!
-                </Button>
-                <Button onClick={() => fetchData()}>
-                    Reload!
-                </Button>
-                <Select>
-                    <option onClick={() => setview(false)}>Table</option>
-                    <option onClick={() => setview(true)}>List</option>
-                </Select>
+            <div className='toolbar'>
+                <div className='sitename'>
+                    Moviebase
+                    <img className='logo' src='logo.svg' height='45px'></img>
+                </div>
+                <div className='searchdiv'>
+                    <Input
+                        type={'text'}
+                        value={search}
+                        onChange={onSearch}
+                        placeholder='Search...'
+                    ></Input>
+                    <Button onClick={() => searchData()}>
+                        Search!
+                    </Button>
+                    <Button onClick={() => fetchData()}>
+                        Reload!
+                    </Button>
+                    <Select>
+                        <option onClick={() => setview(false)}>Table</option>
+                        <option onClick={() => setview(true)}>List</option>
+                    </Select>                    
+                </div>
+
             </div>
             <Infobox/>
             <div>

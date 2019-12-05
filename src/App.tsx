@@ -8,9 +8,6 @@ const App = () => {
   return (
   <div className='App' >
     <div className='App-header'>
-        <div className='sitename'>
-          Moviebase
-        </div>
       <Movietable/>
     </div>
   </div>
