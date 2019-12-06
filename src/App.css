@@ -68,43 +68,41 @@
 */
 
 .list{
+  display: flex;
+  direction:ltr;
   cursor: pointer;
   user-select: none;
-  display: inline-flex;
   width: 500px;
-  height: 235px;
+  height: 232px;
   background-color: whitesmoke;
   padding: 5px;
-  position: absolute;
-  right: 35.5vw;
-  left: 38.5%;
+  margin: 15px;
   transition: .2s ease-in-out;
+  overflow: hidden;
 }
 
 .list:hover{
   transform: scale(1.1);
+  z-index: 1001;
 }
 
 .listPic{
-  align-items: left;
-  width: fit-content;
-  padding: 5px;
-}
-
-.listtext{
-  padding: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #282c34;
-  text-align: left;
-  font-size: 14.5px;
   position: relative;
-  left: 25px;
-  top: 20px;
+  padding: 5px;
+  left: 0%;
+  top: 1%;
+  width: 150px;
+  height: auto;
 }
 
 .textcat{
-  left: 5px;
-  padding: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-top: 10px;
+  padding-left: 14px;
+  font-size: 14.5px;
+  color: #282c34;
+  text-align: left;
+  text-align-last: auto;
 }
 
 /*
@@ -173,17 +171,18 @@
 
 .listwrapper{
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: fixed;
-  overflow: auto;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  position: absolute;
   top: 70px;
-  bottom: 0%;
-  left: 0%;
-  right: 0%;
+  left: 40vw;
+  right: 40vw;
   width: fit-content;
   height: fit-content;
-  z-index: 999;
+  padding: 10px;
+  z-index: 900;
 }
 
 .logo{
