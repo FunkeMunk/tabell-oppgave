@@ -16,7 +16,7 @@ export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
     const [search, setSearch] = React.useState<string>('')
     const [ToF, setToF] = useState(state.Bol)
-    const [view, setview] = React.useState<boolean>(false)
+    const [view, setview] = React.useState<boolean>(true)
 
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
@@ -157,13 +157,12 @@ export function Movietable() {
                         Reload!
                     </Button>
                     <Select>
-                        <option onClick={() => setview(false)}>Table</option>
                         <option onClick={() => setview(true)}>List</option>
+                        <option onClick={() => setview(false)}>Table</option>
                     </Select>                    
                 </div>
-
             </div>
-            <Infobox/>
+                <Infobox/>
             <div>
                 <Viewas/>
             </div>

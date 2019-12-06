@@ -83,7 +83,6 @@
 
 .list:hover{
   transform: scale(1.1);
-  z-index: 1001;
 }
 
 .listPic{
@@ -119,7 +118,8 @@
   position: fixed;
   width: 500px;
   top: 290px;
-  left: 38vw;
+  left: 36.5vw;
+  right: 48vw;
   box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
   z-index: 1000;
 }
