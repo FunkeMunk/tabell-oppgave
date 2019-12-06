@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Newrow, Topelt, Elt, Input, Button, Select } from './Flexbox';
-import { OmdbVals } from './States';
+import { OmdbVals, Othervals } from './States';
 import './App.css'
 import { css, jsx } from '@emotion/core';
 
@@ -32,17 +32,17 @@ export function Movietable() {
 
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
-    }      
+    }
 
     const fetchData = async () => {
-        let res = await fetch('http://www.omdbapi.com/?i=tt3896198&apikey=75dd173a')
+        let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&t=lord of the rings')
         let data = await res.json();
         setarray([data])            
     }
 
     const searchData = async () => {
         if (search.length > 0) {
-            let res = await fetch('http://www.omdbapi.com/?i=' + search + '&apikey=75dd173a')
+            let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&t=' + search)
             let data = await res.json();
             setarray([data])
             setSearch('')
@@ -119,7 +119,7 @@ export function Movietable() {
                         {array.map(info => (
                             <ol onClick={() => open()} key={info.imdbID} className='list'>
                                 <div className='listPic'>
-                                    <img src={info.Poster} width='150px'></img>
+                                    <img src={info.Poster} width='81%'></img>
                                 </div>
                                 <div>
                                     <br/>
