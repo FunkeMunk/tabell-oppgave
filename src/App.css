@@ -46,13 +46,19 @@
 
 .listPic{
   position: relative;
+  display: inline-block;
   padding: 0px;
   left: 0%;
-  top: 10%;
-  width: 33%;
-  min-width: 100px;
-  max-width: 81%;
-  height: auto;
+  top: 0px;
+  width: 150px;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  height: 190px;
+}
+
+.listPic img {
+  height: 100%;
+  width: 90%;
 }
 
 .textcat{

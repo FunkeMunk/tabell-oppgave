@@ -140,7 +140,7 @@ export function Movietable() {
                         :
                         <ol onClick={() => open()} key={info.imdbID} className='list'>
                             <div className='listPic'>
-                                <img src={info.Poster} width='81%'></img>
+                                <img src={info.Poster}></img>
                             </div>
                             <div>
                                 <br/>
