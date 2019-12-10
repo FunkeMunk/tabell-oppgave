@@ -5,6 +5,7 @@ import './App.css'
 import { css, jsx } from '@emotion/core';
 import { Fetch, searchFetch } from './fetch';
 import { Toolbar } from './toolbar';
+import { ErrIcon } from './erricon';
 
 interface Boolean {
     Bol: boolean,
@@ -60,13 +61,26 @@ export function Movietable() {
                         </div>
                         <div className='box-text'>
                         {array.map(info => (
+                            info.Type === 'movie'?
                             <div key={info.imdbID}>
-                                <div className='catText'>{info.Title} </div>  
-                                <div className='catText'>Directed by  {info.Director} </div>  
+                                <div className='catText'>{info.Title} ({info.Type}) </div>
+                                <div className='catText'> produced by {info.Production} </div>
+                                <div className='catText'>Directed by  {info.Director} </div>
                                 <div className='catText'> Acted by {info.Actors} </div>
-                                <div className='catText'>{info.Awards} </div>
-                                <div className='catText'>Rated {info.Metascore} / 100 </div>
+                                <div className='catText'> filmed in {info.Country} </div>
+                                <div className='catText'>awards and nominations: {info.Awards} </div>
                                 <div className='catText'>Runtime is {info.Runtime} </div>
+                                <div className='plot'> Plot: <br/> {info.Plot} </div>
+                            </div>
+                            :
+                            <div key={info.imdbID}>
+                                <div className='catText'>{info.Title} ({info.Type}) </div>
+                                { info.Production === ''? <div className='catText'> produced by {info.Production} </div> : null}
+                                { info.Director === ''? <div className='catText'>Directed by {info.Director} </div> : null}
+                                <div className='catText'> written by {info.Writer} </div>
+                                <div className='catText'> Acted by {info.Actors} </div>
+                                <div className='catText'> filmed in {info.Country} </div>
+                                <div className='catText'>Awards and nominations: {info.Awards} </div>                            
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
                             ))}
@@ -85,7 +99,7 @@ export function Movietable() {
     const Error = () => {
         return (
             <div className='error'>
-                <img src='ohno.svg' width='125px'></img>
+                <ErrIcon/>
                 Look like there is nothing here!
             </div>
         )
@@ -115,7 +129,7 @@ export function Movietable() {
             </div>
         )
     }
-    
+
     const Mylist = () => {
         return(
             <div>
@@ -132,8 +146,9 @@ export function Movietable() {
                                 <br/>
                                 <div className='textcat'> {info.Title} ({info.Year}) </div>
                                 <div className='textcat' > {info.Genre} </div>
-                                <div className='textcat' > scored {info.Metascore} / 100</div>
-                                <div className='textcat' > lasts {info.Runtime} </div>                       
+                                <div className='textcat' >This {info.Type} scored {info.Type === 'movie'?  <> {info.Metascore} / 100 </> : <> {info.imdbRating} / 10 </> }</div>
+                                { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
+                                <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
                             </div>
                         </ol>  
                     ))}          

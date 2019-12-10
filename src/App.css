@@ -110,14 +110,16 @@
 
 .catText{
   font-size: medium;
-  padding: 5px;
+  padding: 10px;
   text-align-last: auto;
 }
 
 .plot{
+  padding: 10px;
   text-align: center;
   height: auto;
   text-justify: distribute;
+  font-size: medium;
 }
 
 /*
@@ -185,7 +187,7 @@
   align-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
   font-size: 27px;
   padding: 10px;
 }

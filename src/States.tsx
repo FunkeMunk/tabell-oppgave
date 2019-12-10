@@ -5,7 +5,12 @@ export interface OmdbVals {
     Year: string,
     Title: string,
     Response: any,
-    
+
+    imdbRating?: string,
+    Country?: string,
+    totalSeasons?: string,
+    Production?: string,
+    Type?: string
     Rated?: string,
     Genre?: string,
     Released?: string,    
