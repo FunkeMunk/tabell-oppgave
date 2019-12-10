@@ -180,6 +180,16 @@
   z-index: 999;
 }
 
+.error{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 27px;
+  padding: 10px;
+}
+
 /*
   Respondsive querries
 */

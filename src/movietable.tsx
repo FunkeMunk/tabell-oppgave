@@ -82,6 +82,15 @@ export function Movietable() {
         )
     }
 
+    const Error = () => {
+        return (
+            <div className='error'>
+                <img src='ohno.svg' width='125px'></img>
+                Look like there is nothing here!
+            </div>
+        )
+    }
+
     const Mytable = () => {
             return(
                 <div>
@@ -109,21 +118,26 @@ export function Movietable() {
     
     const Mylist = () => {
         return(
-            <div className='listwrapper'>
-                {array.map(info => (
-                    <ol onClick={() => open()} key={info.imdbID} className='list'>
-                        <div className='listPic'>
-                            <img src={info.Poster} width='81%'></img>
-                        </div>
-                        <div>
-                            <br/>
-                            <div className='textcat'> {info.Title} ({info.Year}) </div>
-                            <div className='textcat' > {info.Genre} </div>
-                            <div className='textcat' > scored {info.Metascore} / 100</div>
-                            <div className='textcat' > lasts {info.Runtime} </div>                         
-                        </div>
-                    </ol>                       
-                ))}          
+            <div>
+                <div className='listwrapper'>
+                    {array.map(info => (
+                        info.Response === 'False'?
+                            <Error/>
+                        :
+                        <ol onClick={() => open()} key={info.imdbID} className='list'>
+                            <div className='listPic'>
+                                <img src={info.Poster} width='81%'></img>
+                            </div>
+                            <div>
+                                <br/>
+                                <div className='textcat'> {info.Title} ({info.Year}) </div>
+                                <div className='textcat' > {info.Genre} </div>
+                                <div className='textcat' > scored {info.Metascore} / 100</div>
+                                <div className='textcat' > lasts {info.Runtime} </div>                       
+                            </div>
+                        </ol>  
+                    ))}          
+                </div>                    
             </div>
         )
     }
@@ -135,7 +149,7 @@ export function Movietable() {
             case false:
                 return <Mytable/>;
             default:
-                return <Mylist/>;
+                return <Error/>;
         }
     }
 

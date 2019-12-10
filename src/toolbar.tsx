@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import './App.css'
 import { Button, Input, Select } from './Flexbox'
 import PropTypes from 'prop-types'
@@ -15,9 +15,21 @@ export function Toolbar({searchData, fetchData, setview}: IProps) {
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
+
     const onClickSearch= () => {
-        searchData(search)
-        setSearch('')
+        if (search.length < 1) {
+            fetchData()
+        } else {
+            searchData(search)
+            setSearch('')            
+        }
+
+    }
+
+    const onEntersearch = (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            onClickSearch()
+        }
     }
 
     return(
@@ -32,6 +44,7 @@ export function Toolbar({searchData, fetchData, setview}: IProps) {
                         value={search}
                         onChange={onSearch}
                         placeholder='Search...'
+                        onKeyPress={onEntersearch}
                     ></Input>
                     <Button onClick={() => onClickSearch()}>
                         Search!

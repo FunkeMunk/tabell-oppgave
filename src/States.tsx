@@ -4,6 +4,7 @@ export interface OmdbVals {
     imdbID: string,
     Year: string,
     Title: string,
+    Response: any,
     
     Rated?: string,
     Genre?: string,
