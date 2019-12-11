@@ -16,5 +16,5 @@ export const searchFetch = async(keyword: string) => {
         return(
             data
         )        
-    }
+    } else return (null)
 }

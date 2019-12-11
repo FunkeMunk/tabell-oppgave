@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Newrow, Topelt, Elt, Input, Button, Select } from './Flexbox';
+import { Table, Newrow, Topelt, Elt, Input, Button, Select } from './MyStyles/Flexbox';
 import { OmdbVals, Othervals } from './States';
-import './App.css'
+import './MyStyles/style.css'
 import { css, jsx } from '@emotion/core';
 import { Fetch, searchFetch } from './fetch';
 import { Toolbar } from './toolbar';
-import { ErrIcon } from './erricon';
+import { ErrIcon } from './icons/erricon';
+import { NoResult } from './icons/noresulticon';
+import { CloseModal } from './icons/closemodalicon';
 
 interface Boolean {
     Bol: boolean,
@@ -22,7 +24,6 @@ export function Movietable() {
     const [ToF, setToF] = useState(state.Bol)
     const [view, setview] = React.useState<boolean>(true)
 
-
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
         document.body.style.overflow = 'unset'
@@ -35,14 +36,14 @@ export function Movietable() {
         setToF(true)
     }
 
-   const fetchData = async () => {
+    const fetchData = async () => {
         let data = await Fetch()
-        setarray([data])              
+        setarray([data])       
     }
 
     const searchData = async(search: string) => {
         let data = await searchFetch(search)
-        setarray([data]) 
+        setarray([data])
     }
 
     useEffect(() => {
@@ -68,7 +69,7 @@ export function Movietable() {
                                 <div className='catText'>Directed by  {info.Director} </div>
                                 <div className='catText'> Acted by {info.Actors} </div>
                                 <div className='catText'> filmed in {info.Country} </div>
-                                <div className='catText'>awards and nominations: {info.Awards} </div>
+                                <div className='catText'> {info.Awards} </div>
                                 <div className='catText'>Runtime is {info.Runtime} </div>
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
@@ -78,17 +79,15 @@ export function Movietable() {
                                 { info.Production === ''? <div className='catText'> produced by {info.Production} </div> : null}
                                 { info.Director === ''? <div className='catText'>Directed by {info.Director} </div> : null}
                                 <div className='catText'> written by {info.Writer} </div>
-                                <div className='catText'> Acted by {info.Actors} </div>
+                                <div className='catText'> Acted/ hosted by {info.Actors} </div>
                                 <div className='catText'> filmed in {info.Country} </div>
-                                <div className='catText'>Awards and nominations: {info.Awards} </div>                            
+                                <div className='catText'> {info.Awards} </div>                            
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
                             ))}
                         </div>
                         <div className='misc'>
-                            <button onClick={() => dismiss()}>
-                                close
-                            </button>       
+                           <CloseModal dismiss={dismiss}/>      
                         </div>
                     </div> 
                 }           
@@ -101,6 +100,15 @@ export function Movietable() {
             <div className='error'>
                 <ErrIcon/>
                 Look like there is nothing here!
+            </div>
+        )
+    }
+
+    const SearchError = () => {
+        return (
+            <div className='error'>
+                <NoResult/>
+                No results found
             </div>
         )
     }
@@ -136,7 +144,7 @@ export function Movietable() {
                 <div className='listwrapper'>
                     {array.map(info => (
                         info.Response === 'False'?
-                            <Error/>
+                            <SearchError/>
                         :
                         <ol onClick={() => open()} key={info.imdbID} className='list'>
                             <div className='listPic'>
@@ -150,7 +158,7 @@ export function Movietable() {
                                 { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
                                 <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
                             </div>
-                        </ol>  
+                        </ol> 
                     ))}          
                 </div>                    
             </div>
