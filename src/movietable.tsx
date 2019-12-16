@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Newrow, Topelt, Elt, Input, Button, Select } from './MyStyles/Flexbox';
-import { OmdbVals, Othervals } from './States';
+import { Table, Newrow, Topelt, Elt } from './MyStyles/Flexbox';
+import { OmdbVals } from './States';
 import './MyStyles/style.css'
-import { css, jsx } from '@emotion/core';
 import { Fetch, searchFetch } from './fetch';
 import { Toolbar } from './toolbar';
 import { ErrIcon } from './icons/erricon';
@@ -38,7 +37,7 @@ export function Movietable() {
 
     const fetchData = async () => {
         let data = await Fetch()
-        setarray([data])       
+        setarray([data])
     }
 
     const searchData = async(search: string) => {
@@ -69,7 +68,7 @@ export function Movietable() {
                                 <div className='catText'>Directed by  {info.Director} </div>
                                 <div className='catText'> Acted by {info.Actors} </div>
                                 <div className='catText'> filmed in {info.Country} </div>
-                                <div className='catText'> {info.Awards} </div>
+                                <div className='catText'> { info.Awards === 'N/A'? <> no wins or nomination yet... </> : info.Awards} </div>
                                 <div className='catText'>Runtime is {info.Runtime} </div>
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
@@ -81,7 +80,7 @@ export function Movietable() {
                                 <div className='catText'> written by {info.Writer} </div>
                                 <div className='catText'> Acted/ hosted by {info.Actors} </div>
                                 <div className='catText'> filmed in {info.Country} </div>
-                                <div className='catText'> {info.Awards} </div>                            
+                                <div className='catText'> { info.Awards === 'N/A'? <> no wins or nomination yet... </> : info.Awards} </div>                           
                                 <div className='plot'> Plot: <br/> {info.Plot} </div>
                             </div>
                             ))}
@@ -117,22 +116,26 @@ export function Movietable() {
             return(
                 <div>
                     <Table>
-                        <Newrow>
-                            <Topelt>id</Topelt>
-                            <Topelt>Title</Topelt>
-                            <Topelt>Released</Topelt>
-                            <Topelt>Rated</Topelt>
-                            <Topelt>Genre</Topelt>
-                        </Newrow>
-                        {array.map(info => (
-                            <Newrow key={info.imdbID} onClick={() => open()}>
-                            <Elt> {info.imdbID} </Elt>
-                            <Elt> {info.Title} </Elt>
-                            <Elt> {info.Released} </Elt>
-                            <Elt> {info.Rated} </Elt>
-                            <Elt> {info.Genre} </Elt>
-                        </Newrow>                  
-                    ))}
+                        <thead>
+                            <Newrow>
+                                <Topelt>id</Topelt>
+                                <Topelt>Title</Topelt>
+                                <Topelt>Released</Topelt>
+                                <Topelt>Rated</Topelt>
+                                <Topelt>Genre</Topelt>
+                            </Newrow>                            
+                        </thead>
+                        <tfoot>
+                            {array.map(info => (
+                                <Newrow key={info.imdbID} onClick={() => open()}>
+                                    <Elt> {info.imdbID} </Elt>
+                                    <Elt> {info.Title} </Elt>
+                                    <Elt> {info.Released} </Elt>
+                                    <Elt> {info.Rated} </Elt>
+                                    <Elt> {info.Genre} </Elt>
+                                </Newrow>                  
+                            ))}                          
+                        </tfoot>
                 </Table>
             </div>
         )
@@ -144,13 +147,13 @@ export function Movietable() {
                 <div className='listwrapper'>
                     {array.map(info => (
                         info.Response === 'False'?
-                            <SearchError/>
+                            <SearchError key='MI1'/>
                         :
-                        <ol onClick={() => open()} key={info.imdbID} className='list'>
+                        <ol key={info.imdbID} onClick={() => open()} className='list'>
                             <div className='listPic'>
-                                <img src={info.Poster}></img>
+                                <img src={info.Poster} alt=''></img>
                             </div>
-                            <div>
+                            <div className='textdiv'>
                                 <br/>
                                 <div className='textcat'> {info.Title} ({info.Year}) </div>
                                 <div className='textcat' > {info.Genre} </div>
@@ -179,13 +182,9 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <div>
-                <Toolbar searchData={searchData} fetchData={fetchData} setview={setview}/> 
-            </div>
-                <Infobox/>
-            <div>
-                <Viewas/>
-            </div>
+            <Toolbar searchData={searchData} fetchData={fetchData} setview={setview}/> 
+            <Infobox/>
+            <Viewas/>
         </div>
     )
 }

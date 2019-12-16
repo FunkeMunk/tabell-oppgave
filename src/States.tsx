@@ -1,4 +1,3 @@
-import React from "react";
 
 export interface OmdbVals {
     imdbID: string,
@@ -25,9 +24,8 @@ export interface OmdbVals {
 }
 
 export interface Othervals {
-    imdbID: any,
-    Year: any,
-    Title: any,
-    Type: any,
-    Poster?: any,
+    imdbID: string,
+    Year: string,
+    Title: string,
+    Type: string,
 }

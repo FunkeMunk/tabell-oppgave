@@ -1,5 +1,4 @@
-import React from 'react'
-import { OmdbVals } from './States';
+
 
 export const Fetch = async() => {
     let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&t=lord')

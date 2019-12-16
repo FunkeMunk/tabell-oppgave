@@ -5,7 +5,7 @@ export class NoResult extends React.PureComponent{
     render() {
         return(
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 512 512" enable-background="new 0 0 512 512" xmlSpace="preserve" width="145px">
+                viewBox="0 0 512 512" enableBackground="new 0 0 512 512" xmlSpace="preserve" width="145px">
             <path fill="#144856" d="M170.515,336.695c0,4.61-3.738,8.348-8.348,8.348H48.08v94.609h11.904
                 c5.737,0,11.154,2.51,14.862,6.888c3.709,4.378,5.295,10.133,4.352,15.793l-7.116,42.692c-0.681,4.083-4.218,6.977-8.224,6.977
                 c-0.456,0-0.918-0.038-1.382-0.115c-4.548-0.758-7.62-5.059-6.862-9.607l7.116-42.692c0.185-1.106-0.311-1.889-0.622-2.256

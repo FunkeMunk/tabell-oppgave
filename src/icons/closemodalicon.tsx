@@ -8,7 +8,7 @@ export function CloseModal ({dismiss}: IProps) {
         return(
             <div onClick={() => dismiss()}>
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    width="16px" height="16px" viewBox="0 0 348.333 348.334" enable-background="new 0 0 348.333 348.334"
+                    width="16px" height="16px" viewBox="0 0 348.333 348.334" enableBackground="new 0 0 348.333 348.334"
                     xmlSpace="preserve">
                 <g>
                 <path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
