@@ -263,7 +263,7 @@
     width: fit-content;
     max-width: 350px;
     padding: 10px;
-    background-color: Azure;
+    background-color: whitesmoke;
     color: black;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12.5px;
@@ -318,7 +318,7 @@
     border-top: none;
     border-right: 10px solid transparent;
     border-left: 10px solid transparent;
-    border-bottom: 10px solid Azure;
+    border-bottom: 10px solid whitesmoke;
   }
   
   /*
