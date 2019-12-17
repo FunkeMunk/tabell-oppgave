@@ -1,5 +1,4 @@
 
-
 export const Fetch = async() => {
     let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&t=lord')
     let data = await res.json();

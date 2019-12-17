@@ -22,6 +22,7 @@ export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
     const [ToF, setToF] = useState(state.Bol)
     const [view, setview] = React.useState<boolean>(true)
+    const [favourites, setfav] = React.useState<Array<string>>([])
 
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
@@ -112,6 +113,20 @@ export function Movietable() {
         )
     }
 
+    const addFavorite= (value: string) => {
+        if (favourites.includes(value)){
+            return null
+        } else {
+            favourites.push(value)
+        }
+    }
+
+    const removeFav = (value: string, num: number) => {
+        if (favourites.includes(value)){
+            favourites.splice(num, 1)
+        }
+    }
+
     const Mytable = () => {
             return(
                 <div>
@@ -149,11 +164,11 @@ export function Movietable() {
                         info.Response === 'False'?
                             <SearchError key='MI1'/>
                         :
-                        <ol key={info.imdbID} onClick={() => open()} className='list'>
-                            <div className='listPic'>
+                        <ol key={info.imdbID} className='list'>
+                            <div className='listPic' onClick={() => open()}>
                                 <img src={info.Poster} alt=''></img>
                             </div>
-                            <div className='textdiv'>
+                            <div className='textdiv' onClick={() => open()}>
                                 <br/>
                                 <div className='textcat'> {info.Title} ({info.Year}) </div>
                                 <div className='textcat' > {info.Genre} </div>
@@ -161,8 +176,11 @@ export function Movietable() {
                                 { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
                                 <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
                             </div>
+                            <div className='listmisc' >
+                                <img onClick={() => addFavorite(info.Title)} src='astar.png' height='25px' width='25px' alt=''/>                                
+                            </div>
                         </ol> 
-                    ))}          
+                    ))}     
                 </div>                    
             </div>
         )
@@ -182,7 +200,7 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <Toolbar searchData={searchData} fetchData={fetchData} setview={setview}/> 
+            <Toolbar removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview}/> 
             <Infobox/>
             <Viewas/>
         </div>
