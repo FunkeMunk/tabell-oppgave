@@ -113,17 +113,22 @@ export function Movietable() {
         )
     }
 
-    const addFavorite= (value: string) => {
-        if (favourites.includes(value)){
-            return null
-        } else {
-            favourites.push(value)
-        }
-    }
-
     const removeFav = (value: string, num: number) => {
         if (favourites.includes(value)){
             favourites.splice(num, 1)
+        }
+    }
+
+    const addFavorite= (value: string) => {
+        if (favourites.includes(value)){
+            removeFav(value, favourites.indexOf(value))
+            searchData(value)
+            if (!favourites.includes(value)){
+                return null
+            }
+        } else {
+            favourites.push(value)
+            searchData(value)
         }
     }
 
@@ -177,7 +182,7 @@ export function Movietable() {
                                 <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
                             </div>
                             <div className='listmisc' >
-                                <img onClick={() => addFavorite(info.Title)} src='astar.png' height='25px' width='25px' alt=''/>                                
+                                {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='astar.png' height='25px' width='25px' alt=''/> }                               
                             </div>
                         </ol> 
                     ))}     

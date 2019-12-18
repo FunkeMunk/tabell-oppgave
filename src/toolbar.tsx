@@ -85,15 +85,15 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
 
     const Favmodal = () => {
         return(
-                <div className='favmodal'>
-                    <h3 className='favmodalheader'> your favourites </h3>                    
-                        {favs.length > 0?
+            <div className='favmodal'>
+                <h3 className='favmodalheader'> your favourites </h3>                    
+                    {favs.length > 0?
                         favs.map(info => (
-                                <span className='favmodaltext' onClick={() => searchData(info)} key={favs.length + 1} >
-                                    {info} <img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>                          
-                                </span>                        
-                        ))
-                :
+                            <span className='favmodaltext' onClick={() => searchData(info)} key={favs.length + 1} >
+                                {info} <img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>                          
+                            </span>                        
+                    ))
+                    :
                     <p> Wow sutch empty :( <br/>
                     Click the star to add favourites </p>
                 }
