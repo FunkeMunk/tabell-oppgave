@@ -1,10 +1,9 @@
 import React, { ChangeEvent} from 'react'
 import './App.css'
 import './MyStyles/style.css'
-import { Button, Input, Select } from './MyStyles/Flexbox'
+import { Input, Select } from './MyStyles/Flexbox'
 import { searchFetch } from './fetch'
 import { Othervals } from './States'
-import { string } from 'prop-types'
 
 interface IProps {
     searchData: (search: string) => void,
@@ -18,7 +17,9 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
     const [search, setSearch] = React.useState<string>('')
     const [array, setArray] = React.useState<Othervals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
-    const [modalopen, setmodalopen] = React.useState<boolean>(false)
+    const [modalopen, setmodalopen] = React.useState<boolean>(true)
+    const [historyopen, sethistoryopen] = React.useState<boolean>(false)
+    const [history, sethistory] = React.useState<Array<string>>([])
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -38,7 +39,8 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
             fetchData()
         } else {
             searchData(search)
-            setSearch('')            
+            history.push(search)
+            setSearch('')           
         }
     }
     
@@ -56,22 +58,33 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
     const handleOutClick = (e: MouseEvent) => {
         let node: HTMLElement = e.target as HTMLElement
         const reference = document.getElementById("inputField")
-        const SuggestionRef = document.getElementById('favmodal')
 
         if (reference && !reference.contains(node)){
             setinputfocus(false)                       
         }            
     }
 
-    const handleOutClickFav = (e: MouseEvent) => {
-        let node: HTMLElement = e.target as HTMLElement
-    }
-
     const openM = () => {
         if (modalopen === false) {
             setmodalopen(true)
+            sethistoryopen(false)
         } else {
             setmodalopen(false)
+        }
+    }
+
+    const openHM = () => {
+        if (historyopen === false) {
+            sethistoryopen(true)
+            setmodalopen(false)
+        } else {
+            sethistoryopen(false)
+        }
+    }
+
+    const removeHistory = (value: string, num: number) => {
+        if (history.includes(value)){
+            history.splice(num, 1)
         }
     }
 
@@ -86,36 +99,75 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
     const Favmodal = () => {
         return(
             <div className='favmodal'>
-                <h3 className='favmodalheader'> your favourites </h3>                    
+                <h3 className='favmodalheader'> Your favourites </h3>                    
                     {favs.length > 0?
                         favs.map(info => (
-                            <span className='favmodaltext' onClick={() => searchData(info)} key={favs.length + 1} >
-                                {info} <img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>                          
-                            </span>                        
+                        <div key={favs.length} >
+                            <div className='favmodaltextwrapper' >
+                                <p onClick={() => searchData(info)} className='favmodaltext'> {info}
+                                <img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+                                </p>
+                            </div>                                    
+                        </div>                 
                     ))
                     :
                     <p> Wow sutch empty :( <br/>
                     Click the star to add favourites </p>
                 }
-            </div>            
+            </div>                    
         )
     }
 
+    const Historymodal = () => {
+        return (
+            <div className='favmodal'>
+                <h3 className='favmdodalheader'> Your history </h3>
+                {history.length > 0?
+                    history.map(info => (
+                    <div key={history.length}>
+                            <div className='favmodaltextwrapper'>
+                                <p className='favmodaltext' onClick={() => searchData(info)} > {info} 
+                                <img onClick={() => removeHistory(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+                                </p>
+                            </div>
+                    </div>
+                ))
+                :
+                <p> Wow sutch empty :( <br/></p>
+                }
+            </div>
+        )
+    }
+/*
+    Attempts at replacing/ fixing the x in fav modal.
+*/
+//<span className='checkboxS' onClick={() => removeFav(info, favs.indexOf(info))}><img src='deletefav.png' width='20px' height='20px' alt=''/></span>  
+//<img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+//onBlur={() => onUncheckFav(checkedFav.indexOf(info))}
     return(
         <div className='toolbar'>
-            <img onClick={() => openM()} className='favbutton' src='astar.png' width='30px' alt=''/>
+            <div>
+                <p className='favbutton' onClick={() => openM()}> FAVOURITES </p>
+                <p className='historybutton' onClick={() => openHM()}> HISTORY </p>
                 {!modalopen ?
                     null
                 :
-                    <Favmodal/>             
-                }                    
-            <div className='sitename'>
+                    <Favmodal key={188-1}/>
+                }
+                {!historyopen?
+                    null
+                :
+                    <Historymodal key={199-1}/>
+                }
+            </div>     
+            <div className='sitename'  onClick={() => fetchData()}>
                 Moviebase
                 <img className='logo' src='logo.svg' height='45px' alt=''></img>
             </div>
             <div className='searchdiv'>
-                <div className='input' id="inputField" tabIndex={1} >
+                <div className='input' id="inputField" >
                     <Input
+                        tabIndex={1}
                         onFocus={() => setinputfocus(true)}
                         type='text'
                         value={search}
@@ -124,19 +176,16 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                         onKeyPress={onEntersearch}
                     >   
                     </Input>
-                    <Button onClick={() => fetchData()}>
-                        Reload!
-                    </Button>
-                    {search.length > 0 && inputfocus === true?
-                        <span className='suggestion'>{array.map(info => ( <p key='TS1' className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
-                    :
-                        null
-                    }
-                </div>
                     <Select>
                         <option onClick={() => setview(true)}>List</option>
                         <option onClick={() => setview(false)}>Table</option>
-                    </Select>       
+                    </Select> 
+                    {search.length > 0 && inputfocus === true?
+                        <span className='suggestion'>{array.map(info => ( <p key={favs.length} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
+                    :
+                        null
+                    }
+                </div>      
             </div>
         </div>
     )

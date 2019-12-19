@@ -182,7 +182,7 @@ export function Movietable() {
                                 <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
                             </div>
                             <div className='listmisc' >
-                                {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='astar.png' height='25px' width='25px' alt=''/> }                               
+                                {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
                             </div>
                         </ol> 
                     ))}     
@@ -205,7 +205,7 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <Toolbar removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview}/> 
+            <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview}/> 
             <Infobox/>
             <Viewas/>
         </div>
