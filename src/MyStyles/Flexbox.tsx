@@ -24,12 +24,32 @@ export const Button = styled.button`
     }
 `
 
+export const SearchBtn = styled.button`
+    position: relative;
+    left: -10px;
+    color: Azure; 
+    background-color: rgb(235,235,235);
+    height: 24px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+    width: 30px;
+    cursor: pointer;
+    font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+    %:hover{
+        background-color: #3F75A2;
+    }
+`
+
 export const Input = styled.input`
     background-image: url(/public/moviebase-logo-round-edit.png);
     margin: 10px;
     width: 210px;
+    height: 22px;
     padding-left: 10px;
     border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     color: #363636;
     border: none;
     font-size: 13px;
@@ -65,11 +85,12 @@ export const Elt = styled.td`
 export const Select = styled.select`
     position: relative;
     left: 1vw;
-    top: -2px;
+    top: -0px;
+    
     cursor: pointer;
     color: Azure;
     width: 90px;
-    height: 21px;
+    height: 22px;
     padding-bottom: 1px;
     border-radius: 0px;
     border: none;

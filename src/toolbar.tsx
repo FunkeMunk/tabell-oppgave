@@ -1,7 +1,7 @@
 import React, { ChangeEvent} from 'react'
 import './App.css'
 import './MyStyles/style.css'
-import { Input, Select } from './MyStyles/Flexbox'
+import { Input, Select, SearchBtn } from './MyStyles/Flexbox'
 import { searchFetch } from './fetch'
 import { Othervals } from './States'
 import { Searchicon } from './icons/searchicon'
@@ -178,7 +178,15 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                         onKeyPress={onEntersearch}
                     >  
                     </Input>
+                    <SearchBtn
+                        onClick={() => onClickSearch()}
+                    >
+                        <span className='searchicon'>
+                            <Searchicon/>                            
+                        </span>
+                    </SearchBtn>
                     <Select>
+                        
                         <option onClick={() => setview(true)}>List</option>
                         <option onClick={() => setview(false)}>Table</option>
                     </Select> 

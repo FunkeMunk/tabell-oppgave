@@ -138,16 +138,10 @@
     Page styling
   */
 
-  .pushnot{
-    background-color: whitesmoke;
-    width: 200px;
-    height: fit-content;
-    display: block;
-    position: fixed;
-    top: 130px;
-    left: 10px;
-    font-size: 13px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  .searchicon{
+    position: relative;
+    left: -1px;
+    top: 1px;
   }
   
   .listwrapper{
@@ -170,22 +164,25 @@
     display: block;
     user-select: none;
     position: relative;
-    top: -10px;
-    left: 5px;
+    top: -7px;
+    left: 10px;
     flex-direction: column;
     font-size: medium;
     font-size-adjust: initial;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     text-align: center;
-    width: 230px;
+    width: 250px;
     min-height: 50px;
     height: fit-content;
     padding-top: 5px;
     padding-bottom: 1px;
-    background-color: #383e49;
+    background-color:   #383e49;
+    /*
+    #383e49
+    */
     overflow: hidden;
-    z-index: 1001;
+    z-index: 998;
   }
 
   .suggestionText{
@@ -193,7 +190,7 @@
     padding-right: 5px;
     font-size: 15px;
     cursor: pointer;
-    width: 220px;
+    width: 240px;
   }
 
   .suggestionText span.indexnum{
@@ -264,7 +261,7 @@
     height: fit-content;
     position: inherit;
     top: 8px;
-    right: 58vw;
+    right: 57vw;
   }
   
   .sitename{
@@ -276,7 +273,7 @@
     position: inherit;
     padding: 1px;
     top: -14px;
-    right: 46.7vw;
+    right: 46.7%;
     z-index: 1000;
   }
   
@@ -286,7 +283,7 @@
     padding: 3px;
     position: inherit;
     top: 5px;
-    left: 42.5vw;
+    left: 43.5%;
     z-index: 999;
   }
 

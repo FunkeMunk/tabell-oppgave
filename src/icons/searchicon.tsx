@@ -6,7 +6,7 @@ export class Searchicon extends React.PureComponent{
         return(
             <div>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 512 512" enable-background="new 0 0 512 512" xmlSpace="preserve" width='35px'>
+                    viewBox="0 0 512 512" enable-background="new 0 0 512 512" xmlSpace="preserve" width='15px'>
                     <g>
                         <g>
                             <path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0
