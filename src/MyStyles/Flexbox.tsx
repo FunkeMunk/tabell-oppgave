@@ -25,15 +25,15 @@ export const Button = styled.button`
 `
 
 export const Input = styled.input`
+    background-image: url(/public/moviebase-logo-round-edit.png);
     margin: 10px;
-    width: 180px;
-  background-color: #d9d9d9;
-  padding-left: 10px;
-  border-radius: 25px;
-  color: #363636;
-  border: none;
-  font-size: 13px;
-  padding-left: 10px;
+    width: 210px;
+    padding-left: 10px;
+    border-radius: 5px;
+    color: #363636;
+    border: none;
+    font-size: 13px;
+    padding-left: 10px;
 `
 export const Newrow = styled.tr`
     width: 550px;
@@ -65,12 +65,13 @@ export const Elt = styled.td`
 export const Select = styled.select`
     position: relative;
     left: 1vw;
-    top: -3px;
+    top: -2px;
     cursor: pointer;
     color: Azure;
     width: 90px;
-    height: 23px;
+    height: 21px;
     padding-bottom: 1px;
+    border-radius: 0px;
     border: none;
     -webkit-appearance: none;
     -moz-appearance: none;

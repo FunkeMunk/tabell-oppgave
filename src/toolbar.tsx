@@ -4,6 +4,7 @@ import './MyStyles/style.css'
 import { Input, Select } from './MyStyles/Flexbox'
 import { searchFetch } from './fetch'
 import { Othervals } from './States'
+import { Searchicon } from './icons/searchicon'
 
 interface IProps {
     searchData: (search: string) => void,
@@ -30,6 +31,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
         setSearch(keyword)
         if (search.length > 0) {
             searchData(keyword)
+            history.push(keyword)
             setSearch('')
         }
     }
@@ -127,7 +129,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                     <div key={history.length}>
                             <div className='favmodaltextwrapper'>
                                 <p className='favmodaltext' onClick={() => searchData(info)} > {info} 
-                                <img onClick={() => removeHistory(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+                                <img onClick={() => removeHistory(info, history.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
                                 </p>
                             </div>
                     </div>
@@ -138,6 +140,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
             </div>
         )
     }
+
 /*
     Attempts at replacing/ fixing the x in fav modal.
 */
@@ -161,8 +164,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                 }
             </div>     
             <div className='sitename'  onClick={() => fetchData()}>
-                Moviebase
-                <img className='logo' src='logo.svg' height='45px' alt=''></img>
+                <img className='logo' src='moviebase-logo-round-edit.png' height='' alt=''></img>
             </div>
             <div className='searchdiv'>
                 <div className='input' id="inputField" >
@@ -174,7 +176,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                         onChange={onSearch}
                         placeholder='Search...'
                         onKeyPress={onEntersearch}
-                    >   
+                    >  
                     </Input>
                     <Select>
                         <option onClick={() => setview(true)}>List</option>

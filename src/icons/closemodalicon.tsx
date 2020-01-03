@@ -6,8 +6,8 @@ interface IProps{
 
 export function CloseModal ({dismiss}: IProps) {
         return(
-            <div onClick={() => dismiss()}>
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <div>
+                <svg onClick={() => dismiss()} className='closemodaldiv' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     width="16px" height="16px" viewBox="0 0 348.333 348.334" enableBackground="new 0 0 348.333 348.334"
                     xmlSpace="preserve">
                 <g>
