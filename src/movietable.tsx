@@ -192,7 +192,7 @@ export function Movietable() {
                             <SearchError key='MI1'/>
                         :
                         <ol key={info.imdbID} className='list'>
-                            <div className='listPic' onClick={() => open()}>
+                            <div className='listPic' onClick={() => listOnClick(info.Title)}>
                                 <img src={info.Poster} alt=''></img>
                             </div>
                             <div className='textdiv' onClick={() => listOnClick(info.Title)}>
