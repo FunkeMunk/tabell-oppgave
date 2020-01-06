@@ -23,9 +23,26 @@ export interface OmdbVals {
     Director? : string
 }
 
+export interface vals{
+    imdbID: string,
+    Year: string,
+    Title: string,
+    Type: string,
+    Poster: string,
+}
+
 export interface Othervals {
     imdbID: string,
     Year: string,
     Title: string,
     Type: string,
+    Poster: string,
+}
+
+export interface somevals {
+    0: OmdbVals[]
+}
+
+export interface Search {
+
 }

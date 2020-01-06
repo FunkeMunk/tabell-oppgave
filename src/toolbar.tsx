@@ -2,21 +2,24 @@ import React, { ChangeEvent} from 'react'
 import './App.css'
 import './MyStyles/style.css'
 import { Input, Select, SearchBtn } from './MyStyles/Flexbox'
-import { searchFetch } from './fetch'
-import { Othervals } from './States'
+import { searchFetch, fetchByTitle } from './fetch'
+import { Othervals, vals } from './States'
 import { Searchicon } from './icons/searchicon'
+import { Movietable } from './movietable'
 
 interface IProps {
     searchData: (search: string) => void,
     fetchData:() => void,
-    setview:(value: boolean) => void,
+    setview:(value: string) => void,
     favs: Array<string>
     removeFav: (value: string, num: number) => void
+    fetchforlist: (value: string) => Promise<void>
+    listArray: Othervals[]
 }
 
-export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProps) {
+export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchforlist}: IProps) {
     const [search, setSearch] = React.useState<string>('')
-    const [array, setArray] = React.useState<Othervals[]>([])
+    const [array, setArray] = React.useState<vals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
     const [modalopen, setmodalopen] = React.useState<boolean>(true)
     const [historyopen, sethistoryopen] = React.useState<boolean>(false)
@@ -28,9 +31,9 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
     }
 
     const onClickSuggestion = (keyword: string) => {
-        setSearch(keyword)
         if (search.length > 0) {
-            searchData(keyword)
+            setview('list')
+            fetchforlist(keyword)
             history.push(keyword)
             setSearch('')
         }
@@ -38,11 +41,12 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
 
     const onClickSearch= () => {
         if (search.length < 1) {
-            fetchData()
+            fetchforlist('lord of the rings')
         } else {
-            searchData(search)
+            setview('list')
+            fetchforlist(search)
             history.push(search)
-            setSearch('')           
+            setSearch('')         
         }
     }
     
@@ -54,6 +58,8 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
     const onEntersearch = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             onClickSearch()
+            fetchforlist(search)
+            setview('list')
         }
     }
 
@@ -84,15 +90,21 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
         }
     }
 
+    const onModalClick = (value: string) => {
+        fetchforlist(value)
+        setview('list')
+    }
+
     const removeHistory = (value: string, num: number) => {
         if (history.includes(value)){
             history.splice(num, 1)
+            searchData(value)
         }
     }
 
     React.useEffect(() => {
         document.body.addEventListener("click", handleOutClick)
-        fetchData();
+        fetchforlist('lord')
         return () => {
             document.body.removeEventListener("click", handleOutClick)
         }
@@ -105,10 +117,13 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                     {favs.length > 0?
                         favs.map(info => (
                         <div key={favs.length} >
-                            <div className='favmodaltextwrapper' >
-                                <p onClick={() => searchData(info)} className='favmodaltext'> {info}
-                                <img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+                            <div className='favmodaltextwrapper'>
+                                <p className='favmodaltext' onClick={() => onModalClick(info)}> {info}
                                 </p>
+                                <span onClick={() => removeFav(info, favs.indexOf(info))}>
+                                    <img src='deletefav.png' width='18px' height='18px' alt=''/>
+                                </span>
+
                             </div>                                    
                         </div>                 
                     ))
@@ -128,9 +143,11 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                     history.map(info => (
                     <div key={history.length}>
                             <div className='favmodaltextwrapper'>
-                                <p className='favmodaltext' onClick={() => searchData(info)} > {info} 
-                                <img onClick={() => removeHistory(info, history.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
+                                <p className='favmodaltext' onClick={() => onModalClick(info)} > {info} 
                                 </p>
+                                <span onClick={() => removeHistory(info, history.indexOf(info))}>
+                                <img src='deletefav.png' width='18px' height='18px' alt=''/> 
+                                </span>
                             </div>
                     </div>
                 ))
@@ -163,7 +180,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                     <Historymodal key={199-1}/>
                 }
             </div>     
-            <div className='sitename'  onClick={() => fetchData()}>
+            <div className='sitename'  onClick={() => fetchforlist('lord')}>
                 <img className='logo' src='moviebase-logo-round-edit.png' height='' alt=''></img>
             </div>
             <div className='searchdiv'>
@@ -186,9 +203,8 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview}: IProp
                         </span>
                     </SearchBtn>
                     <Select>
-                        
-                        <option onClick={() => setview(true)}>List</option>
-                        <option onClick={() => setview(false)}>Table</option>
+                        <option onClick={() => setview('list')}>List</option>
+                        <option onClick={() => setview('table')}> Table </option>
                     </Select> 
                     {search.length > 0 && inputfocus === true?
                         <span className='suggestion'>{array.map(info => ( <p key={favs.length} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>

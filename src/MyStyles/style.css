@@ -345,8 +345,15 @@
     position: relative;
     direction: ltr;
     font-size: 12.5px;
-    width: 90%;
+    width: 85%;
     padding: 0px;
+  }
+
+  .favmodaltextwrapper span{
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+    left: 10px;
   }
 
   .favmodaltext img{
@@ -376,6 +383,132 @@
     border-left: 10px solid transparent;
     border-bottom: 10px solid whitesmoke;
   }*/
+
+  /*
+    full page view
+  */
+
+  .fullpagewrapper{
+    background-color: #2f343d;
+    position: absolute;
+    display: block;
+    top: 67px;
+    right: 20vw;
+    width: 55vw;
+    height: 65vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  .firstbox{
+    position: relative;
+    left: 0vw;
+    width: 1000px;
+    height: 400px;
+  }
+
+  .header{
+    position: relative;
+    left: 13vw;
+    top: -8vw;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  .favstar{
+    position: relative;
+    top: 5px;
+    padding-left: 10px;
+  }
+
+  .favstar:hover{
+    cursor: pointer;
+    transform: scale(1.);
+  }
+
+  .genretext{
+    position: relative;
+    left: 13vw;
+    top: -8vw;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .moviepic{
+    position: relative;
+    padding: 10px;
+    padding-left: 0px;
+    top: 0.5vw;
+    left: 1vw;
+    width: 50px;
+    height: 150px;
+  }
+
+  .extratext{
+    font-size: 15px;
+    position: relative;
+    right: -1vw;
+  }
+
+  .plottext{
+    position: relative;
+    width: 400px;
+    top: -4vw;
+    left: 13vw;
+    font-size: 18px;
+    text-align: left;
+  }
+
+  .box2{
+    position: relative;
+    left: 5vw;
+    display: block;
+    width: 700px;
+    height: fit-content;
+    padding: 20px;
+    padding-bottom: 90px;
+  }
+
+  .textheader1{
+    position: relative;
+    right: -5vw;
+    width: 30vw;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid whitesmoke;
+  }
+
+  .header1text{
+    padding-left: 90px;
+    padding-top: 10px;
+    font-size: 23.5px;
+    text-align: left;
+  }
+
+  .box3{
+    position: relative;
+    left: 5vw;
+    display: block;
+    width: 700px;
+    height: fit-content;
+    padding: 20px;
+    padding-bottom: 50px;
+  }
+
+  .backButton{
+    position: relative;
+    left: 51vw;
+    top: 1vw;
+    width: 35px;
+    cursor: pointer;
+  }
+
+  .reviewtext{
+    font-size: 18px;
+    position: relative;
+    left: 13vw;
+    top: -6vw;
+    text-align: left;
+  }
   
   /*
     Respondsive querries

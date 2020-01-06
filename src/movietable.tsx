@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Newrow, Topelt, Elt } from './MyStyles/Flexbox';
-import { OmdbVals } from './States';
+import { OmdbVals, Othervals, somevals } from './States';
 import './MyStyles/style.css'
-import { Fetch, searchFetch } from './fetch';
+import { Fetch, searchFetch, fetchByTitle } from './fetch';
 import { Toolbar } from './toolbar';
 import { ErrIcon } from './icons/erricon';
 import { NoResult } from './icons/noresulticon';
 import { CloseModal } from './icons/closemodalicon';
+import Fullpageview from './fullpageview';
+import { Undo } from './icons/undoicon';
 
 interface Boolean {
     Bol: boolean,
     keyword?: string,
+
 }
 
 let state: Boolean = {
@@ -21,8 +24,9 @@ let state: Boolean = {
 export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
     const [ToF, setToF] = useState(state.Bol)
-    const [view, setview] = React.useState<boolean>(true)
+    const [view, setview] = React.useState<string>('list')
     const [favourites, setfav] = React.useState<Array<string>>([])
+    const [ listArray, setLA ] = React.useState<Othervals[]>([])
 
     const dismiss = () => {
         document.body.style.pointerEvents = 'all'
@@ -46,8 +50,19 @@ export function Movietable() {
         setarray([data])
     }
 
+    const listOnClick = (value: string) => {
+        setview('fullpage')
+        searchData(value)
+    }
+
+    const fetchforlist = async(value: string) => {
+        let data = await fetchByTitle(value);
+        if(!data) setLA([])
+        else setLA(data.Search)
+    }
+
     useEffect(() => {
-        fetchData();
+        fetchforlist('lord of the rings')
     }, [])
 
     const Infobox = () => {
@@ -94,6 +109,11 @@ export function Movietable() {
             </div>
         )
     }
+    const undo = () => {
+        return(
+            <Undo setview={setview}/>
+        )
+    }
 
     const Error = () => {
         return (
@@ -116,6 +136,7 @@ export function Movietable() {
     const removeFav = (value: string, num: number) => {
         if (favourites.includes(value)){
             favourites.splice(num, 1)
+            searchData(value)
         }
     }
 
@@ -162,24 +183,25 @@ export function Movietable() {
     }
 
     const Mylist = () => {
+        if(!listArray) return <SearchError key='MI1'/>
         return(
             <div>
                 <div className='listwrapper'>
-                    {array.map(info => (
-                        info.Response === 'False'?
+                    {listArray.map(info => (
+                        listArray.length === null?
                             <SearchError key='MI1'/>
                         :
                         <ol key={info.imdbID} className='list'>
                             <div className='listPic' onClick={() => open()}>
                                 <img src={info.Poster} alt=''></img>
                             </div>
-                            <div className='textdiv' onClick={() => open()}>
+                            <div className='textdiv' onClick={() => listOnClick(info.Title)}>
                                 <br/>
                                 <div className='textcat'> {info.Title} ({info.Year}) </div>
-                                <div className='textcat' > {info.Genre} </div>
+                                {/*<div className='textcat' > {info.Genre} </div>
                                 <div className='textcat' >This {info.Type} scored {info.Type === 'movie'?  <> {info.Metascore} / 100 </> : <> {info.imdbRating} / 10 </> }</div>
                                 { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
-                                <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>                  
+                    <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>*/}                  
                             </div>
                             <div className='listmisc' >
                                 {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
@@ -193,10 +215,12 @@ export function Movietable() {
 
     const Viewas = () => {
         switch (view) {
-            case true:
+            case 'list':
                 return <Mylist/>;
-            case false:
+            case 'table':
                 return <Mytable/>;
+            case 'fullpage':
+                return <Fullpageview array={array} favs={favourites} addFavorite={addFavorite} Undo={undo}/>;
             default:
                 return <Error/>;
         }
@@ -205,9 +229,9 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview}/>
+            <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} />
             <Infobox/>
-            <Viewas/>                
+            <Viewas/>          
         </div>
     )
 }
