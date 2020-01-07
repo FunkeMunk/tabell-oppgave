@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Newrow, Topelt, Elt } from './MyStyles/Flexbox';
 import { OmdbVals, Othervals } from './States';
 import './MyStyles/style.css'
-import { Fetch, searchFetch, fetchByTitle } from './fetch';
+import { Fetch, searchFetch, fetchByTitle, fetchById } from './fetch';
 import { Toolbar } from './toolbar';
 import { ErrIcon } from './icons/erricon';
 import { NoResult } from './icons/noresulticon';
@@ -34,12 +34,6 @@ export function Movietable() {
         setToF(false)
     }
 
-    const open = () => {
-        document.body.style.pointerEvents = 'none'
-        document.body.style.overflow = 'hidden'
-        setToF(true)
-    }
-
     const fetchData = async () => {
         let data = await Fetch()
         setarray([data])
@@ -50,15 +44,20 @@ export function Movietable() {
         setarray([data])
     }
 
-    const listOnClick = (value: string) => {
+    const listOnClick = (value: string, year: string) => {
         setview('fullpage')
-        searchData(value)
+        fetchWithId(value, year)
     }
 
     const fetchforlist = async(value: string) => {
         let data = await fetchByTitle(value);
         if(!data) setLA([])
         else setLA(data.Search)
+    }
+
+    const fetchWithId = async(value: string, year: string) => {
+        let data = await fetchById(value, year);
+        setarray([data])
     }
 
     useEffect(() => {
@@ -163,10 +162,10 @@ export function Movietable() {
                             <SearchError key='MI1'/>
                         :
                         <ol key={info.imdbID} className='list'>
-                            <div className='listPic' onClick={() => listOnClick(info.Title)}>
+                            <div className='listPic' onClick={() => listOnClick(info.Title, info.Year)}>
                                 <img src={info.Poster} alt=''></img>
                             </div>
-                            <div className='textdiv' onClick={() => listOnClick(info.Title)}>
+                            <div className='textdiv' onClick={() => listOnClick(info.Title, info.Year)}>
                                 <br/>
                                 <div className='textcat'> {info.Title} ({info.Year}) </div>
                                 {/*<div className='textcat' > {info.Genre} </div>
