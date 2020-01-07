@@ -33,7 +33,8 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchf
     const onClickSuggestion = (keyword: string) => {
         if (search.length > 0) {
             setview('list')
-            fetchforlist(keyword)
+            setSearch(keyword)
+            onClickSearch()
             history.push(keyword)
             setSearch('')
         }
@@ -57,16 +58,9 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchf
 
     const onEntersearch = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            if (view === 'list' || 'fullpage'){
-                fetchforlist(search)
-                history.push(search)
-                setSearch('')
-            } else {
-                searchFetch(search)
-                history.push(search)
-                setSearch('')
-            }
-               
+            fetchforlist(search)
+            history.push(search)
+            setSearch('')     
         }
     }
 
@@ -208,11 +202,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchf
                         <span className='searchicon'>
                             <Searchicon/>                            
                         </span>
-                    </SearchBtn>
-                    <Select>
-                        <option onClick={() => setview('list')}>List</option>
-                        <option onClick={() => setview('table')}> Table </option>
-                    </Select> 
+                    </SearchBtn> 
                     {search.length > 0 && inputfocus === true?
                         <span className='suggestion'>{array.map(info => ( <p key={favs.length} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
                     :

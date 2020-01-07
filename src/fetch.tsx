@@ -18,7 +18,7 @@ export const searchFetch = async(keyword: string) => {
 }
 
 export const fetchByTitle = async(search: string) => {
-    let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&s=' + search)
+    let res = await fetch('http://www.omdbapi.com/?apikey=75dd173a&s=' + search)      
     let Search = await res.json();
     return(
         Search

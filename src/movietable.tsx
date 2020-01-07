@@ -153,35 +153,6 @@ export function Movietable() {
         }
     }
 
-    const Mytable = () => {
-            return(
-                <div>
-                    <Table>
-                        <thead>
-                            <Newrow>
-                                <Topelt>id</Topelt>
-                                <Topelt>Title</Topelt>
-                                <Topelt>Released</Topelt>
-                                <Topelt>Rated</Topelt>
-                                <Topelt>Genre</Topelt>
-                            </Newrow>                            
-                        </thead>
-                        <tfoot>
-                            {array.map(info => (
-                                <Newrow key={info.imdbID} onClick={() => open()}>
-                                    <Elt> {info.imdbID} </Elt>
-                                    <Elt> {info.Title} </Elt>
-                                    <Elt> {info.Released} </Elt>
-                                    <Elt> {info.Rated} </Elt>
-                                    <Elt> {info.Genre} </Elt>
-                                </Newrow>                  
-                            ))}                          
-                        </tfoot>
-                </Table>
-            </div>
-        )
-    }
-
     const Mylist = () => {
         if(!listArray) return <SearchError key='MI1'/>
         return(
@@ -217,8 +188,6 @@ export function Movietable() {
         switch (view) {
             case 'list':
                 return <Mylist/>;
-            case 'table':
-                return <Mytable/>;
             case 'fullpage':
                 return <Fullpageview array={array} favs={favourites} addFavorite={addFavorite} Undo={undo}/>;
             default:
