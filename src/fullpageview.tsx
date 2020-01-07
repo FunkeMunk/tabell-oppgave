@@ -12,11 +12,11 @@ export function Fullpageview({array, favs, addFavorite, Undo}: IProps) {
 
     return(
         <div className='fullpagewrapper'>
+            <div className='backButton'>
+                <Undo/>
+            </div>
             {array.map(info => (
                     <div className='firstbox' key={info.imdbID}>
-                        <div className='backButton'>
-                            <Undo/>
-                        </div>
                         <div className='moviepic'> <img src={info.Poster} alt=''/></div>                  
                         <div className='header' > {info.Title} ({info.Year}) <span className='favstar'>{!favs.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/>} </span>  </div>
                         <div className='genretext'> {info.Type}, {info.Genre} </div>
