@@ -2,22 +2,22 @@ import React, { ChangeEvent} from 'react'
 import './App.css'
 import './MyStyles/style.css'
 import { Input, Select, SearchBtn } from './MyStyles/Flexbox'
-import { searchFetch, fetchByTitle } from './fetch'
+import { searchFetch } from './fetch'
 import { Othervals, vals } from './States'
 import { Searchicon } from './icons/searchicon'
-import { Movietable } from './movietable'
 
 interface IProps {
     searchData: (search: string) => void,
     fetchData:() => void,
     setview:(value: string) => void,
+    view: string
     favs: Array<string>
     removeFav: (value: string, num: number) => void
     fetchforlist: (value: string) => Promise<void>
     listArray: Othervals[]
 }
 
-export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchforlist}: IProps) {
+export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchforlist, view}: IProps) {
     const [search, setSearch] = React.useState<string>('')
     const [array, setArray] = React.useState<vals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
@@ -46,7 +46,7 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchf
             setview('list')
             fetchforlist(search)
             history.push(search)
-            setSearch('')         
+            setSearch('')      
         }
     }
     
@@ -57,9 +57,16 @@ export function Toolbar({removeFav ,favs, searchData, fetchData, setview, fetchf
 
     const onEntersearch = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            onClickSearch()
-            fetchforlist(search)
-            setview('list')
+            if (view === 'list' || 'fullpage'){
+                fetchforlist(search)
+                history.push(search)
+                setSearch('')
+            } else {
+                searchFetch(search)
+                history.push(search)
+                setSearch('')
+            }
+               
         }
     }
 

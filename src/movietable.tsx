@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Newrow, Topelt, Elt } from './MyStyles/Flexbox';
-import { OmdbVals, Othervals, somevals } from './States';
+import { OmdbVals, Othervals } from './States';
 import './MyStyles/style.css'
 import { Fetch, searchFetch, fetchByTitle } from './fetch';
 import { Toolbar } from './toolbar';
@@ -62,7 +62,7 @@ export function Movietable() {
     }
 
     useEffect(() => {
-        fetchforlist('lord of the rings')
+        fetchforlist('lord')
     }, [])
 
     const Infobox = () => {
@@ -229,7 +229,7 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-            <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} />
+            <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} />
             <Infobox/>
             <Viewas/>          
         </div>

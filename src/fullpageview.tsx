@@ -1,6 +1,5 @@
 import React from 'react'
 import { OmdbVals } from './States'
-import undoicon, { Undo } from './icons/undoicon'
 
 interface IProps{
     array: Array<OmdbVals>,
@@ -18,7 +17,7 @@ export function Fullpageview({array, favs, addFavorite, Undo}: IProps) {
                         <div className='backButton'>
                             <Undo/>
                         </div>
-                        <div className='moviepic'> <img src={info.Poster} width='210px' height='330px' alt=''/></div>                  
+                        <div className='moviepic'> <img src={info.Poster} alt=''/></div>                  
                         <div className='header' > {info.Title} ({info.Year}) <span className='favstar'>{!favs.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/>} </span>  </div>
                         <div className='genretext'> {info.Type}, {info.Genre} </div>
                         <div className='genretext'> {info.Type === 'movie'? info.Runtime : <> {info.totalSeasons} seasons </>} </div>
