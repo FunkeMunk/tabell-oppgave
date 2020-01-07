@@ -12,6 +12,7 @@
     padding: 5px;
     margin: 15px;
     transition: .2s ease-in-out;
+    border-radius: 7px;
     overflow: hidden;
   }
   
@@ -24,12 +25,12 @@
     display: inline-block;
     cursor: pointer;
     padding: 0px;
-    left: 0%;
-    top: 0px;
-    width: 150px;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    height: 190px;
+    left: -2.6%;
+    top: -5px;
+    width: 200px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    height: 245px;
   }
   
   .listPic img {
