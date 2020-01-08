@@ -405,7 +405,7 @@
   .firstbox{
     position: relative;
     top: 70px;
-    left: -30px;
+    left: -35px;
     width: 55vw;
     height: 350px;
     text-size-adjust: auto;
@@ -418,8 +418,8 @@
     width: 35vw;
     max-width: fit-content;
     left: 250px;
-    top: -155px;
-    font-size: 1.3rem;
+    top: -170px;
+    font-size: 1.2rem;
     text-align: left;
   }
 
@@ -438,7 +438,7 @@
     position: relative;
     width: 35vw;
     left: 250px;
-    top: -155px;
+    top: -170px;
     font-size: 1.1vw;
     text-align: left;
     text-size-adjust: auto;
@@ -448,16 +448,16 @@
     position: relative;
     padding: 10px;
     padding-left: 0px;
-    top: 0.5vw;
-    left: 1vw;
+    top: -10px;
+    left: 0.5vw;
     width: 50px;
     height: 150px;
   }
 
   .moviepic img{
-    width: 11vw;
+    width: 220px;
     min-width: 200px;
-    height: 17.5vw;
+    height: 350px;
     min-height: 310px;
   }
 
@@ -471,7 +471,7 @@
   .plottext{
     position: relative;
     width: 400px;
-    top: -25%;
+    top: -100px;
     left: 250px;
     font-size: 1.1rem;
     text-align: left;
@@ -522,6 +522,7 @@
     position: relative;
     top: 1vw;
     width: 35px;
+    height: 35px;
     left: 95%;
     cursor: pointer;
   }
@@ -531,7 +532,7 @@
     position: relative;
     width: 35vw;
     left: 250px;
-    top: -130px;
+    top: -140px;
     text-align: left;
   }
   
