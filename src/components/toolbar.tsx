@@ -5,6 +5,7 @@ import { Input, SearchBtn } from '../MyStyles/Flexbox'
 import { searchFetch } from '../fetch'
 import { Othervals, vals } from '../States'
 import { Searchicon } from '../icons/searchicon'
+import { Redirect } from 'react-router'
 
 interface IProps {
     searchData: (search: string) => void,
@@ -15,9 +16,10 @@ interface IProps {
     removeFav: (value: string, num: number) => void
     fetchforlist: (value: string) => Promise<void>
     listArray: Othervals[]
+    redirect: (value: string) => void
 }
 
-export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist}: IProps) {
+export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist, redirect}: IProps) {
     const [search, setSearch] = React.useState<string>('')
     const [array, setArray] = React.useState<vals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
@@ -101,6 +103,11 @@ export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist}: I
         }
     }
 
+    const logoClick = () => {
+        redirect('/')
+        fetchforlist('lord')
+    }
+
     React.useEffect(() => {
         document.body.addEventListener("click", handleOutClick)
         fetchforlist('lord')
@@ -179,7 +186,7 @@ export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist}: I
                     <Historymodal key={199-1}/>
                 }
             </div>     
-            <div className='sitename'  onClick={() => fetchforlist('lord')}>
+            <div className='sitename'  onClick={() => logoClick()}>
                 <img className='logo' src='moviebase-logo-round-edit.png' height='' alt=''></img>
             </div>
             <div className='searchdiv'>

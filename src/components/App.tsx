@@ -1,8 +1,8 @@
 import React from 'react';
-import { Movietable } from './components/movietable';
+import { Movietable } from './movietable';
 import './App'
-import './States'
-import { Toolbar } from './components/toolbar';
+import '../States'
+import { Toolbar } from './toolbar';
 import Routes from './routes';
 
 const App = () => {

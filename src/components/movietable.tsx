@@ -28,12 +28,6 @@ export function Movietable() {
     const [ listArray, setLA ] = React.useState<Othervals[]>([])
     const [route, setroute] = React.useState<string>('/')
 
-    const dismiss = () => {
-        document.body.style.pointerEvents = 'all'
-        document.body.style.overflow = 'unset'
-        setToF(false)
-    }
-
     const fetchData = async () => {
         let data = await Fetch()
         setarray([data])
@@ -52,6 +46,7 @@ export function Movietable() {
 
     const listOnClick = (value: string, year: string, id: string) => {
         fetchWithId(value, year, id)
+        redirect('/movie')
         setview('fullpage')
     }
 
@@ -127,22 +122,22 @@ export function Movietable() {
                             listArray.length === null?
                                 <SearchError key='MI1'/>
                             :
-                            <ol key={info.imdbID} className='list'>
-                                <div className='listPic' onClick={() => listOnClick(info.Title, info.Year, info.imdbID)}>
-                                    <img src={info.Poster} alt=''></img>
-                                </div>
-                                <div className='textdiv' onClick={() => listOnClick(info.Title, info.Year, info.imdbID)}>
-                                    <br/>
-                                    <div className='textcat'> {info.Title} ({info.Year}) </div>
-                                    {/*<div className='textcat' > {info.Genre} </div>
-                                    <div className='textcat' >This {info.Type} scored {info.Type === 'movie'?  <> {info.Metascore} / 100 </> : <> {info.imdbRating} / 10 </> }</div>
-                                    { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
-                        <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>*/}                  
-                                </div>
-                                <div className='listmisc' >
-                                    {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
-                                </div>
-                            </ol> 
+                                <ol key={info.imdbID} className='list'>
+                                    <div className='listPic' onClick={() => listOnClick(info.Title, info.Year, info.imdbID)}>
+                                        <img src={info.Poster} alt=''></img>
+                                    </div>
+                                    <div className='textdiv' onClick={() => listOnClick(info.Title, info.Year, info.imdbID)}>
+                                        <br/>
+                                        <div className='textcat'> {info.Title} ({info.Year}) </div>
+                                        {/*<div className='textcat' > {info.Genre} </div>
+                                        <div className='textcat' >This {info.Type} scored {info.Type === 'movie'?  <> {info.Metascore} / 100 </> : <> {info.imdbRating} / 10 </> }</div>
+                                        { info.Type === 'movie'? null : <div className='textcat'>seasons: {info.totalSeasons} </div>}
+                            <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>*/}                  
+                                    </div>
+                                    <div className='listmisc' >
+                                        {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
+                                    </div>
+                                </ol>                             
                         ))}     
                     </div>    
                 }
@@ -165,7 +160,7 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-             <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} />
+             <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} redirect={redirect} />
             <Viewas/>          
         </div>
     )
