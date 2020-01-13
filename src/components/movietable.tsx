@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { OmdbVals, Othervals } from '../States';
 import '../MyStyles/style.css'
 import { Fetch, searchFetch, fetchByTitle, fetchById } from '../fetch';
@@ -7,7 +7,9 @@ import { ErrIcon } from '../icons/erricon';
 import { NoResult } from '../icons/noresulticon';
 import Fullpageview from './fullpageview';
 import { Undo } from '../icons/undoicon';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { store, addFav, removeFav } from './redux/favourites';
+import { useSelector, useDispatch } from 'react-redux';
 
 interface Boolean {
     Bol: boolean,
@@ -15,18 +17,17 @@ interface Boolean {
 
 }
 
-let state: Boolean = {
-    Bol: false,
-    keyword: ''
-}
-
 export function Movietable() {
     const [array, setarray] = React.useState<OmdbVals[]>([])
-    const [ToF, setToF] = useState(state.Bol)
     const [view, setview] = React.useState<string>('list')
-    const [favourites, setfav] = React.useState<Array<string>>([])
     const [ listArray, setLA ] = React.useState<Othervals[]>([])
     const [route, setroute] = React.useState<string>('/')
+
+
+    const dispatch = useDispatch()
+    const list = useSelector(store.getState)
+    const addToArr = (value: string ) => dispatch(addFav(value)) 
+    const removeFromArr = (value: string) => dispatch(removeFav(value))
 
     const fetchData = async () => {
         let data = await Fetch()
@@ -38,15 +39,8 @@ export function Movietable() {
         setarray([data])
     }
 
-    const redirect = (value: string) => {
-        return(
-            <Link to={value}/>
-        )
-    }
-
     const listOnClick = (value: string, year: string, id: string) => {
         fetchWithId(value, year, id)
-        redirect('/movie')
         setview('fullpage')
     }
 
@@ -60,10 +54,6 @@ export function Movietable() {
         let data = await fetchById(value, year, id);
         setarray([data])
     }
-
-    useEffect(() => {
-        fetchforlist('lord')
-    }, [])
 
     const undo = () => {
         return(
@@ -89,25 +79,17 @@ export function Movietable() {
         )
     }
 
-    const removeFav = (value: string, num: number) => {
-        if (favourites.includes(value)){
-            favourites.splice(num, 1)
-            searchData(value)
-        }
+    const removeMyFav = (value: string) => {
+        removeFromArr(value)
     }
 
-    const addFavorite= (value: string) => {
-        if (favourites.includes(value)){
-            removeFav(value, favourites.indexOf(value))
-            searchData(value)
-            if (!favourites.includes(value)){
-                return null
-            }
-        } else {
-            favourites.push(value)
-            searchData(value)
-        }
+    const addFavorite = (value: string) => {
+        addToArr(value)
     }
+
+    useEffect(() => {
+        fetchforlist('lord')
+    }, [])
 
     const Mylist = () => {
         if(!listArray) return <SearchError key='MI1'/>
@@ -135,7 +117,7 @@ export function Movietable() {
                             <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>*/}                  
                                     </div>
                                     <div className='listmisc' >
-                                        {!favourites.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => addFavorite(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
+                                        {!list.fav.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => removeMyFav(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
                                     </div>
                                 </ol>                             
                         ))}     
@@ -151,7 +133,7 @@ export function Movietable() {
             case 'list':
                 return <Mylist/>;
             case 'fullpage':
-                return <Fullpageview array={array} favs={favourites} addFavorite={addFavorite} Undo={undo}/>;
+                return <Fullpageview array={array} Undo={undo}/>;
             default:
                 return <Error/>;
         }
@@ -160,7 +142,7 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-             <Toolbar key={188-2} removeFav={removeFav} favs={favourites} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} redirect={redirect} />
+             <Toolbar key={188-2} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} />
             <Viewas/>          
         </div>
     )

@@ -5,27 +5,29 @@ import { Input, SearchBtn } from '../MyStyles/Flexbox'
 import { searchFetch } from '../fetch'
 import { Othervals, vals } from '../States'
 import { Searchicon } from '../icons/searchicon'
-import { Redirect } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux'
+import { store, removeFav } from './redux/favourites'
 
 interface IProps {
     searchData: (search: string) => void,
     fetchData:() => void,
     setview:(value: string) => void,
     view: string
-    favs: Array<string>
-    removeFav: (value: string, num: number) => void
     fetchforlist: (value: string) => Promise<void>
     listArray: Othervals[]
-    redirect: (value: string) => void
 }
 
-export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist, redirect}: IProps) {
+export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
     const [search, setSearch] = React.useState<string>('')
     const [array, setArray] = React.useState<vals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
     const [modalopen, setmodalopen] = React.useState<boolean>(true)
     const [historyopen, sethistoryopen] = React.useState<boolean>(false)
     const [history, sethistory] = React.useState<Array<string>>([])
+
+    const list = useSelector(store.getState)
+    const dispatch = useDispatch() 
+    const removeFromArr = (value: string) => dispatch(removeFav(value))
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -104,8 +106,12 @@ export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist, re
     }
 
     const logoClick = () => {
-        redirect('/')
+        setview('list')
         fetchforlist('lord')
+    }
+
+    const removeMyFav = (value: string ) => {
+        removeFromArr(value)
     }
 
     React.useEffect(() => {
@@ -120,13 +126,13 @@ export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist, re
         return(
             <div className='favmodal'>
                 <h3 className='favmodalheader'> Your favourites </h3>                    
-                    {favs.length > 0?
-                        favs.map(info => (
-                        <div key={favs.length} >
+                    {list.fav.length > 0?
+                        list.fav.map(info => (
+                        <div key={list.fav.length} >
                             <div className='favmodaltextwrapper'>
                                 <p className='favmodaltext' onClick={() => onModalClick(info)}> {info}
                                 </p>
-                                <span onClick={() => removeFav(info, favs.indexOf(info))}>
+                                <span onClick={() => removeMyFav(info)}>
                                     <img src='deletefav.png' width='18px' height='18px' alt=''/>
                                 </span>
 
@@ -209,7 +215,7 @@ export function Toolbar ({removeFav ,favs, searchData, setview, fetchforlist, re
                         </span>
                     </SearchBtn> 
                     {search.length > 0 && inputfocus === true?
-                        <span className='suggestion'>{array.map(info => ( <p key={favs.length} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
+                        <span className='suggestion'>{array.map(info => ( <p key={list.fav.length + 1} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
                     :
                         null
                     }

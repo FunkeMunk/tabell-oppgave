@@ -38,11 +38,3 @@ export interface Othervals {
     Type: string,
     Poster: string,
 }
-
-export interface somevals {
-    0: OmdbVals[]
-}
-
-export interface Search {
-
-}

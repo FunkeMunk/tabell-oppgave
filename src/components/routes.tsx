@@ -9,8 +9,8 @@ export function Routes() {
     return(
         <Router>
             <Switch>
-                <Route exact path='/' component={Movietable}/>
-                <Route exact path='/movie' component={Fullpageview}/>
+                <Route path='/' component={Movietable}/>
+                <Route path='/movie' component={Fullpageview}/>
                 <Route component={ErrIcon}/>
             </Switch>               
         </Router> 

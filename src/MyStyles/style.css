@@ -573,5 +573,8 @@
       left: 6.3vw;
       right: 10vw;
     }
+    .listwrapper{
+      left: 20%;
+    }
   
   }
