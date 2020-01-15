@@ -6,7 +6,9 @@ import { searchFetch } from '../fetch'
 import { Othervals, vals } from '../States'
 import { Searchicon } from '../icons/searchicon'
 import { useSelector, useDispatch } from 'react-redux'
-import { store, removeFav } from './redux/favourites'
+import { removeFav } from './redux/favourites'
+import { Profile } from './profilemodal/Profile'
+import { rootStore } from './redux/store'
 
 interface IProps {
     searchData: (search: string) => void,
@@ -21,11 +23,12 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
     const [search, setSearch] = React.useState<string>('')
     const [array, setArray] = React.useState<vals[]>([])
     const [inputfocus, setinputfocus] = React.useState<boolean>(false)
-    const [modalopen, setmodalopen] = React.useState<boolean>(true)
+    const [modalopen, setmodalopen] = React.useState<boolean>(false)
     const [historyopen, sethistoryopen] = React.useState<boolean>(false)
     const [history, sethistory] = React.useState<Array<string>>([])
+    const [profileopen, setPO] = React.useState<boolean>(true)
 
-    const list = useSelector(store.getState)
+    const list = useSelector(rootStore.getState)
     const dispatch = useDispatch() 
     const removeFromArr = (value: string) => dispatch(removeFav(value))
 
@@ -71,7 +74,7 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
         const reference = document.getElementById("inputField")
 
         if (reference && !reference.contains(node)){
-            setinputfocus(false)                       
+            if(inputfocus) setinputfocus(false)                       
         }            
     }
 
@@ -114,6 +117,14 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
         removeFromArr(value)
     }
 
+    const onProfileClick = () => {
+        if (!profileopen) {
+            setPO(true)
+        } else {
+            setPO(false)
+        }
+    }
+
     React.useEffect(() => {
         document.body.addEventListener("click", handleOutClick)
         fetchforlist('lord')
@@ -126,9 +137,9 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
         return(
             <div className='favmodal'>
                 <h3 className='favmodalheader'> Your favourites </h3>                    
-                    {list.fav.length > 0?
-                        list.fav.map(info => (
-                        <div key={list.fav.length} >
+                    {list.favReducer.fav.length > 0?
+                        list.favReducer.fav.map(info => (
+                        <div key={list.favReducer.fav.length} >
                             <div className='favmodaltextwrapper'>
                                 <p className='favmodaltext' onClick={() => onModalClick(info)}> {info}
                                 </p>
@@ -176,6 +187,7 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
 //<span className='checkboxS' onClick={() => removeFav(info, favs.indexOf(info))}><img src='deletefav.png' width='20px' height='20px' alt=''/></span>  
 //<img onClick={() => removeFav(info, favs.indexOf(info))} src='deletefav.png' width='18px' height='18px' alt=''/>
 //onBlur={() => onUncheckFav(checkedFav.indexOf(info))}
+//<img onClick={() => onProfileClick()} className='profileicon' src='profileavatar.png' alt='' width='40px' />
     return(
         <div className='toolbar'>
             <div>
@@ -215,12 +227,23 @@ export function Toolbar ({ searchData, setview, fetchforlist}: IProps) {
                         </span>
                     </SearchBtn> 
                     {search.length > 0 && inputfocus === true?
-                        <span className='suggestion'>{array.map(info => ( <p key={list.fav.length + 1} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
+                        <span className='suggestion'>{array.map(info => ( <p key={list.favReducer.fav.length + 1} className='suggestionText' onClick={() => onClickSuggestion(info.Title)}> {info.Title} ({info.Year}) </p>))}</span>
                     :
                         null
                     }
-                </div>      
+                </div>
+            <p className='profileicon' onClick={() => onProfileClick()} >
+                PROFILE
+            </p>      
+                
             </div>
+                {!profileopen?
+                    null
+                    :
+                    <div className='profilemodal'>
+                        <Profile/>
+                    </div>
+                }
         </div>
     )
 }

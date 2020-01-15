@@ -7,14 +7,13 @@ import { ErrIcon } from '../icons/erricon';
 import { NoResult } from '../icons/noresulticon';
 import Fullpageview from './fullpageview';
 import { Undo } from '../icons/undoicon';
-import { Link, Redirect } from 'react-router-dom';
-import { store, addFav, removeFav } from './redux/favourites';
+import { addFav, removeFav } from './redux/favourites';
 import { useSelector, useDispatch } from 'react-redux';
+import { rootStore } from './redux/store';
 
 interface Boolean {
     Bol: boolean,
     keyword?: string,
-
 }
 
 export function Movietable() {
@@ -23,9 +22,8 @@ export function Movietable() {
     const [ listArray, setLA ] = React.useState<Othervals[]>([])
     const [route, setroute] = React.useState<string>('/')
 
-
     const dispatch = useDispatch()
-    const list = useSelector(store.getState)
+    const list = useSelector(rootStore.getState)
     const addToArr = (value: string ) => dispatch(addFav(value)) 
     const removeFromArr = (value: string) => dispatch(removeFav(value))
 
@@ -84,6 +82,7 @@ export function Movietable() {
     }
 
     const addFavorite = (value: string) => {
+        console.log(list)
         addToArr(value)
     }
 
@@ -117,7 +116,7 @@ export function Movietable() {
                             <div className='textcat' > {info.Type === 'movie'? <> lasts {info.Runtime} </> : <> Eatch episode lasts {info.Runtime} </> }</div>*/}                  
                                     </div>
                                     <div className='listmisc' >
-                                        {!list.fav.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => removeMyFav(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
+                                        {!list.favReducer.fav.includes(info.Title)? <img onClick={() => addFavorite(info.Title)} src='astarblack.png' height='23px' width='23px' alt=''/> : <img onClick={() => removeMyFav(info.Title)} src='star.png' height='25px' width='25px' alt=''/> }                               
                                     </div>
                                 </ol>                             
                         ))}     
@@ -133,7 +132,7 @@ export function Movietable() {
             case 'list':
                 return <Mylist/>;
             case 'fullpage':
-                return <Fullpageview array={array} Undo={undo}/>;
+                return <Fullpageview array={array} Undo={undo}/>
             default:
                 return <Error/>;
         }
@@ -142,8 +141,8 @@ export function Movietable() {
     return (
           //const filterid = (source).sort((a, b) => (a.id > b.id) ? 1 : -1).map(param => (<YOUR-FORMAT>))
         <div>
-             <Toolbar key={188-2} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} />
-            <Viewas/>          
+             <Toolbar key={188-2} searchData={searchData} fetchData={fetchData} setview={setview} fetchforlist={fetchforlist} listArray={listArray} view={view} />      
+             <Viewas/>
         </div>
     )
 }

@@ -104,3 +104,43 @@ export const Select = styled.select`
     background-repeat: no-repeat;
     background-color: SteelBlue;
 `
+
+export const PassInput = styled.input`
+    position: relative;
+    margin: 10px;
+    width: 65%;
+    height: 17px;
+    padding-left: 10px;
+    color: #363636;
+    border: none;
+    font-size: 13px;
+    padding-left: 10px;
+`
+
+export const UserInput = styled.input`
+    position: relative;
+    margin: 10px;
+    width: 65%;
+    height: 17px;
+    padding-left: 10px;
+    color: #363636;
+    border: none;
+    font-size: 13px;
+    padding-left: 10px;
+`
+
+export const ProfileBtn = styled.button`
+    color: Azure;
+    background-color: SteelBlue;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin: 7px;
+    width: 60px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+    &:hover{
+        background-color: #3F75A2;
+    }
+`

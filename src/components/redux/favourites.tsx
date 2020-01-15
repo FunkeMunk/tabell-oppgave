@@ -4,16 +4,16 @@ interface IState {
     fav: Array<string>
 }
 
-const favInitialState: IState = {
+export const favInitialState: IState = {
     fav: []
 }
 
-interface ActionTypes {
+export interface ActionTypes {
     type: string,
     payload: string
 }
 
-const favReducer = (state = favInitialState, action: ActionTypes) => {
+export const favReducer = (state = favInitialState, action: ActionTypes) => {
     switch (action.type) {
         case 'ADD_FAV':
             return{
